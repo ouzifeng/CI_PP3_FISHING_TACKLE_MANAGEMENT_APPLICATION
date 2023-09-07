@@ -146,6 +146,15 @@ def manage_products():
             break
         else:
             print("Invalid choice!")
+            
+def get_integer_input(prompt_message):
+    """Prompt the user for an integer input. Retry until a valid integer is provided."""
+    while True:
+        value = input(prompt_message)
+        try:
+            return int(value)
+        except ValueError:
+            print("Invalid input! Please enter a number.")            
         
 
 
