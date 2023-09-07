@@ -135,16 +135,23 @@ def main():
     while True:
         print("\nWhat do you want to do?")
         print("1. Show me all out of stock products")
-        print("2. Exit Application")
+        print("2. Manage products")
+        print("3. Create products")
+        print("4. Exit Application")
         
         choice = input("Select an option: ")
 
         if choice == '1':
             check_out_of_stock()
         elif choice == '2':
+            manage_products()
+        elif choice == '3':
+            create_product()
+        elif choice == '4':
             break
         else:
             print("Invalid choice!")
 
 if __name__ == "__main__":
     main()
+
