@@ -32,7 +32,7 @@ def send_email(recipient_email, subject, content):
     """Send email using AWS SMTP credentials."""
     msg = MIMEText(content)
     msg['Subject'] = subject
-    msg['From'] = 'your_email@example.com'  # Your sending email
+    msg['From'] = 'orders@tackletarts.uk'  # Your verified sending email
     msg['To'] = recipient_email
 
     with smtplib.SMTP(smtp_server, smtp_port) as smtp_connection:
