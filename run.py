@@ -28,9 +28,56 @@ SHEET = GSPREAD_CLIENT.open('fishing_tackle')
 
 products = SHEET.worksheet('products')
 
-def send_email(recipient_email, subject, content):
+def send_email(recipient_email, subject, out_of_stock_items):
     """Send email using AWS SMTP credentials."""
-    msg = MIMEText(content)
+    
+    # Start building the HTML content for the email
+    html_content = """
+    <html>
+    <head>
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th, td {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Out of Stock Products</h2>
+        <table>
+            <tr>
+                <th>SKU</th>
+                <th>Product Name</th>
+                <th>Cost Price</th>
+                <th>RRP</th>
+                <th>Stock</th>
+            </tr>
+    """
+    
+    for item in out_of_stock_items:
+        sku = item.get('SKU', '-')
+        product_name = item.get('Product Name', '-')
+        cost_price = item.get('Cost Price', '-')
+        rrp = item.get('RRP', '-')
+        stock = item.get('Stock', '-')
+        html_content += f"<tr><td>{sku}</td><td>{product_name}</td><td>{cost_price}</td><td>{rrp}</td><td>{stock}</td></tr>"
+
+    # Close the HTML tags
+    html_content += """
+        </table>
+    </body>
+    </html>
+    """
+
+    msg = MIMEText(html_content, 'html')
     msg['Subject'] = subject
     msg['From'] = 'orders@tackletarts.uk'  # Your verified sending email
     msg['To'] = recipient_email
@@ -39,8 +86,6 @@ def send_email(recipient_email, subject, content):
         smtp_connection.starttls()
         smtp_connection.login(smtp_username, smtp_password)
         smtp_connection.sendmail(msg['From'], [msg['To']], msg.as_string())
-
-from prettytable import PrettyTable
 
 def check_out_of_stock():
     """Prints out products that are out of stock."""
@@ -76,8 +121,8 @@ def check_out_of_stock():
 
     if choice == '1':
         recipient_email = input("Enter the email address to send to: ")
-        email_content = "\n".join([f"{item.get('SKU', 'Unknown SKU')} - {item.get('Product Name', 'Unknown Product')}" for item in out_of_stock_items])
-        send_email(recipient_email, "Out of Stock Products", email_content)
+        send_email(recipient_email, "Out of Stock Products", out_of_stock_items)
+
         print("Email sent successfully!")
     elif choice == '2':
         return
