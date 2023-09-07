@@ -181,7 +181,7 @@ def update_product_details():
         print("3. RRP:", product_row[3])
         print("4. Stock:", product_row[4])
         print("5. Exit to previous menu")
-        print("\nWhich detail would you like to update? (Enter the number or press Enter to skip):")
+        print("\nWhich detail would you like to update? (Enter 1 for Product Name, 2 for Cost Price etc, or press Enter to skip):")
         
         choice = input()
         if choice == '1':
@@ -214,7 +214,7 @@ def delete_product():
     cell = products.find(sku)
     
     if cell is None:
-        print("Product with SKU", sku, "not found.")
+        print("\nProduct with SKU", sku, "not found. Please choose another option")
         return
     else:
         row_num = cell.row
