@@ -206,6 +206,40 @@ def update_product_details():
         product_row = products.row_values(row_num)
 
     print("\nProduct details updated successfully!")
+    
+def delete_product():
+    sku = input("Enter SKU of the product you want to delete: ")
+
+    # Fetch product details using SKU
+    cell = products.find(sku)
+    
+    if cell is None:
+        print("Product with SKU", sku, "not found.")
+        return
+    else:
+        row_num = cell.row
+        product_row = products.row_values(row_num)
+    
+    # Display the product details to the user for confirmation
+    print("\nProduct Details:")
+    print("SKU:", product_row[0])
+    print("Product Name:", product_row[1])
+    print("Cost Price:", product_row[2])
+    print("RRP:", product_row[3])
+    print("Stock:", product_row[4])
+    
+    choice = input("\nAre you sure you want to delete this product? (yes/no): ")
+
+    if choice.lower() == 'yes':
+        double_check = input("This action is irreversible. Confirm deletion? (yes/no): ")
+        if double_check.lower() == 'yes':
+            products.delete_rows(row_num, row_num)
+            print("Product deleted successfully!")
+        else:
+            print("Product deletion canceled.")
+    else:
+        print("Product deletion canceled.")
+    
 
 
 def main():
