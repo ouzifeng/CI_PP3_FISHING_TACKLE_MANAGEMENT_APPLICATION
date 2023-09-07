@@ -291,15 +291,27 @@ def login(email, password):
 def signup():
     users_sheet = SHEET.worksheet('user')
 
-    email = input("Enter your email: ")
+    while True:
+        email = input("Enter your email (or 'exit' to return to the main menu): ")
 
-    if not is_valid_email(email):
-        print("Invalid email! Please adhere to the requirements.")
-        print("- Contains one '@' symbol.")
-        print("- Has a domain name after the '@' symbol.")
-        print("- Ends with a domain extension like .com, .org, etc.\n")
-        return
-    
+        if email.lower() == 'exit':
+            return
+
+        # Check if the email exists
+        user_data = users_sheet.col_values(1)  # Get all emails
+        if email in user_data:
+            print("Email already exists! Please try another one or type 'exit' to go back.")
+            continue
+        
+        if not is_valid_email(email):
+            print("Invalid email! Please adhere to the requirements.")
+            print("- Contains one '@' symbol.")
+            print("- Has a domain name after the '@' symbol.")
+            print("- Ends with a domain extension like .com, .org, etc.\n")
+            continue
+
+        break  # Break out of the loop if email is unique and valid
+
     while True:
         print("\nPassword requirements:")
         print("- At least 8 characters")
@@ -322,12 +334,6 @@ def signup():
         else:
             break
 
-    user_data = users_sheet.col_values(1)  # Get all emails
-
-    if email in user_data:
-        print("Email already exists! Please try another one or log in.")
-        return
-
     # Append the new user data
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     users_sheet.append_row([email, password, current_time])
@@ -335,6 +341,8 @@ def signup():
 
     # Log the user in automatically
     return login(email, password)
+
+
 
 def logged_in_menu():
     while True:
