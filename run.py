@@ -4,12 +4,14 @@ import json
 import smtplib
 from email.mime.text import MIMEText
 from prettytable import PrettyTable
+import datetime
+import re
 
 # Load credentials from creds.json
 with open('creds.json', 'r') as file:
     creds = json.load(file)
     smtp_creds = creds['aws_smtp']
-
+    
 smtp_server = smtp_creds['server']
 smtp_port = smtp_creds['port']
 smtp_username = smtp_creds['username']
@@ -239,17 +241,155 @@ def delete_product():
             print("Product deletion canceled.")
     else:
         print("Product deletion canceled.")
+
+def is_valid_email(email):
+    """
+    Validate the email based on the following:
+    - Contains one '@' symbol.
+    - Has a domain name after the '@' symbol.
+    - Ends with a domain extension like .com, .org, etc.
+    """
+    email_regex = r"[^@]+@[^@]+\.[^@]+"
+    return re.match(email_regex, email) is not None
+
+def is_valid_password(password):
+    """
+    Validate the password based on the following:
+    - At least 8 characters
+    - At least one uppercase letter
+    - At least one lowercase letter
+    - At least one digit
+    - At least one special character
+    - No spaces at the beginning or end
+    """
+    if len(password) < 8:
+        return False
+    if not re.search("[a-z]", password):
+        return False
+    if not re.search("[A-Z]", password):
+        return False
+    if not re.search("[0-9]", password):
+        return False
+    if not re.search("[!@#$%^&*]", password):
+        return False
+    if password.strip() != password:
+        return False
+    return True
+
+def login(email, password):
+    users_sheet = SHEET.worksheet('user')
+    user_data = users_sheet.get_all_records()
+
+    for user in user_data:
+        if user['User'] == email and user['Password'] == password:
+            print(f"\nWelcome {email}! You are now logged in.")
+            print("Welcome to the fishing tackle management system. You will find options to manage your shop inventory below.")
+            return True
+    print("\nInvalid email or password.")
+    return False
+
+def signup():
+    users_sheet = SHEET.worksheet('user')
+
+    email = input("Enter your email: ")
+
+    if not is_valid_email(email):
+        print("Invalid email! Please adhere to the requirements.")
+        print("- Contains one '@' symbol.")
+        print("- Has a domain name after the '@' symbol.")
+        print("- Ends with a domain extension like .com, .org, etc.\n")
+        return
     
+    while True:
+        print("\nPassword requirements:")
+        print("- At least 8 characters")
+        print("- At least one uppercase letter")
+        print("- At least one lowercase letter")
+        print("- At least one digit")
+        print("- At least one special character (e.g., !, @, #, $, etc.)")
+        print("- No spaces at the beginning or end")
+        password = input("\nEnter a password: ")
+
+        if not is_valid_password(password):
+            print("Invalid password! Please adhere to the requirements.")
+            continue
+
+        confirm_password = input("Re-enter password to confirm: ")
+
+        if password != confirm_password:
+            print("\nPasswords do not match! Please try again.")
+            continue
+        else:
+            break
+
+    user_data = users_sheet.col_values(1)  # Get all emails
+
+    if email in user_data:
+        print("Email already exists! Please try another one or log in.")
+        return
+
+    # Append the new user data
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    users_sheet.append_row([email, password, current_time])
+    print(f"\nUser with email {email} successfully signed up!")
+
+    # Log the user in automatically
+    return login(email, password)
+
+def logged_in_menu():
+    while True:
+        print("\nWhat would you like to do next?")
+        print("1. Manage Inventory")
+        print("2. View Sales Data")
+        print("3. Log out")
+        
+        choice = input("Select an option: ")
+
+        if choice == '1':
+            # Call a function to manage inventory
+            pass
+        elif choice == '2':
+            # Call a function to view sales data
+            pass
+        elif choice == '3':
+            print("Logged out successfully!")
+            break
+        else:
+            print("Invalid choice!")
 
 
 def main():
-    """Main function to prompt user for what they want to do."""
+    logged_in = False
+    while not logged_in:
+        print("\nWhat do you want to do?")
+        print("1. Login")
+        print("2. Sign up")
+        print("3. Exit")
+        
+        choice = input("Select an option: ")
+
+        if choice == '1':
+            email = input("Enter your email: ")
+            password = input("Enter your password: ")
+            logged_in = login(email, password)
+        elif choice == '2':
+            logged_in = signup()
+        elif choice == '3':
+            break
+        else:
+            print("Invalid choice!")
+
+    if logged_in:
+        logged_in_menu()
+
+def user_actions():
+    """Function to prompt logged in user for what they want to do."""
     while True:
         print("\nWhat do you want to do?")
         print("1. Show me all out of stock products")
         print("2. Manage products")
         print("3. Create products")
-        print("4. Exit Application")
+        print("4. Logout")
         
         choice = input("Select an option: ")
 
@@ -263,6 +403,8 @@ def main():
             break
         else:
             print("Invalid choice!")
+
+# ... [rest of your code]
 
 if __name__ == "__main__":
     main()
