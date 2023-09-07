@@ -152,7 +152,7 @@ def get_integer_input(prompt_message):
     while True:
         value = input(prompt_message)
         try:
-            return int(value)
+            return float(value)
         except ValueError:
             print("Invalid input! Please enter a number.")            
         
@@ -172,33 +172,41 @@ def update_product_details():
         row_num = cell.row
         product_row = products.row_values(row_num)
 
-    # Display current product details
-    print("\nCurrent Product Details:")
-    print("SKU:", product_row[0])
-    print("1. Product Name:", product_row[1])
-    print("2. Cost Price:", product_row[2])
-    print("3. RRP:", product_row[3])
-    print("4. Stock:", product_row[4])
-    print("\nWhich detail would you like to update? (Press 1 for Product Name, 2 for Cost Price etc or press Enter to skip):")
-
-    choice = input()
-    if choice == '1':
-        new_value = input("Enter new Product Name: ")
-        products.update_cell(row_num, 2, new_value)
-    elif choice == '2':
-        new_value = get_integer_input("Enter new Cost Price: ")
-        products.update_cell(row_num, 3, new_value)
-    elif choice == '3':
-        new_value = get_integer_input("Enter new RRP: ")
-        products.update_cell(row_num, 4, new_value)
-    elif choice == '4':
-        new_value = get_integer_input("Enter new Stock: ")
-        products.update_cell(row_num, 5, new_value)
-    else:
-        print("Invalid choice or no update selected.")
-        return
+    while True:
+        # Display current product details
+        print("\nCurrent Product Details:")
+        print("SKU:", product_row[0])
+        print("1. Product Name:", product_row[1])
+        print("2. Cost Price:", product_row[2])
+        print("3. RRP:", product_row[3])
+        print("4. Stock:", product_row[4])
+        print("5. Exit to previous menu")
+        print("\nWhich detail would you like to update? (Enter the number or press Enter to skip):")
+        
+        choice = input()
+        if choice == '1':
+            new_value = input("Enter new Product Name: ")
+            products.update_cell(row_num, 2, new_value)
+        elif choice == '2':
+            new_value = get_integer_input("Enter new Cost Price: ")
+            products.update_cell(row_num, 3, new_value)
+        elif choice == '3':
+            new_value = get_integer_input("Enter new RRP: ")
+            products.update_cell(row_num, 4, new_value)
+        elif choice == '4':
+            new_value = get_integer_input("Enter new Stock: ")
+            products.update_cell(row_num, 5, new_value)
+        elif choice == '5' or choice == '':
+            print("Exiting to previous menu.")
+            break
+        else:
+            print("Invalid choice. Please select a valid option.")
+            
+        # Refresh the product_row after the update so that the latest details are displayed in the next loop iteration
+        product_row = products.row_values(row_num)
 
     print("\nProduct details updated successfully!")
+
 
 def main():
     """Main function to prompt user for what they want to do."""
