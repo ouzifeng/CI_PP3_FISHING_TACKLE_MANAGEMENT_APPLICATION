@@ -148,7 +148,7 @@ def manage_products():
             print("Invalid choice!")
             
 def get_integer_input(prompt_message):
-    """Prompt the user for an integer input. Retry until a valid integer is provided."""
+    """Prompt the user for a float input. Retry until a valid float is provided."""
     while True:
         value = input(prompt_message)
         try:
