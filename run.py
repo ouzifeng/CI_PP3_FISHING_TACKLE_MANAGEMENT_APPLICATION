@@ -135,7 +135,7 @@ def main():
     while True:
         print("\nWhat do you want to do?")
         print("1. Show me all out of stock products")
-        print("2. Exit")
+        print("2. Exit Application")
         
         choice = input("Select an option: ")
 
