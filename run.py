@@ -128,6 +128,25 @@ def check_out_of_stock():
         return
     else:
         print("Invalid choice!")
+        
+def manage_products():
+    while True:
+        print("\nManage Products:")
+        print("1. Update product details")
+        print("2. Delete a product")
+        print("3. Go back to main menu")
+        
+        choice = input("Select an option: ")
+        
+        if choice == '1':
+            update_product_details()
+        elif choice == '2':
+            delete_product()
+        elif choice == '3':
+            break
+        else:
+            print("Invalid choice!")
+        
 
 
 def main():
