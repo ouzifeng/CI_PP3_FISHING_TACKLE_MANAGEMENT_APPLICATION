@@ -280,13 +280,24 @@ def login(email, password):
     users_sheet = SHEET.worksheet('user')
     user_data = users_sheet.get_all_records()
 
-    for user in user_data:
+    for index, user in enumerate(user_data):
         if user['User'] == email and user['Password'] == password:
+            # Fetch last login time and display to user
+            last_login = user['Last Login']
             print(f"\nWelcome {email}! You are now logged in.")
-            print("Welcome to the fishing tackle management system. You will find options to manage your shop inventory below.")
+            if last_login:  # Check if there's a last login time available
+                print(f"Your last login was at {last_login}.")
+
+            # Update the last login time for the user to the current time
+            current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            row_number = index + 2  # +1 for 0-based index and +1 for the header row
+            users_sheet.update_cell(row_number, 3, current_time)  # 3rd column is 'Last Login'
+            
             return True
     print("\nInvalid email or password.")
     return False
+
+
 
 def signup():
     users_sheet = SHEET.worksheet('user')
@@ -369,6 +380,7 @@ def logged_in_menu():
 def main():
     logged_in = False
     while not logged_in:
+        print("Welcome to the fishing tackle management system. Login or create an account below.")
         print("\nWhat do you want to do?")
         print("1. Login")
         print("2. Sign up")
