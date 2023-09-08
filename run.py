@@ -1,8 +1,10 @@
-from authentication import login, signup
+from authentication import login, signup, SHEET
 from product_management import update_product_details, delete_product, check_out_of_stock, create_product, check_product_margins
+from utilities import is_valid_email
 
 def main():
     """Main function to prompt user for what they want to do."""
+    users_sheet = SHEET.worksheet('user')
     logged_in = False
 
     while not logged_in:
@@ -14,9 +16,23 @@ def main():
         choice = input("Select an option: ")
 
         if choice == '1':
-            email = input("Enter your email: ")
+            while True:  # This loop ensures the user can keep trying until a valid email is entered
+                email = input("Enter your email: ")
+                if not is_valid_email(email):  # Check if the entered email is valid
+                    print("\nInvalid email format!")
+                    continue  # Skip the rest of the current iteration and loop back
+                
+                email_records = [user['User'] for user in users_sheet.get_all_records()]
+                if email not in email_records:
+                    print("\nEmail not found in our database.")
+                    continue  # Skip the rest of the current iteration and loop back
+                
+                # If the email format is valid and exists in the database, break out of the loop
+                break
+
             password = input("Enter your password: ")
             logged_in = login(email, password)
+
         elif choice == '2':
             signup()
         elif choice == '3':
