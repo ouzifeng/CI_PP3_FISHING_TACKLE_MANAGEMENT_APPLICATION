@@ -224,14 +224,19 @@ def check_product_margins():
             filtered_margins = [m for m in margins if m['Margin %'] > threshold]
         else:  # operation is '<'
             filtered_margins = [m for m in margins if m['Margin %'] < threshold]
+        
+        if not filtered_margins:
+            print(f"\nThere are no products with margins {'above' if operation == '>' else 'below'} {threshold}%.")
+        else:
+            table = PrettyTable()
+            table.field_names = ["SKU", "Product Name", "Margin %"]
+            for margin in filtered_margins:
+                table.add_row([margin['SKU'], margin['Product Name'], f"{margin['Margin %']:.2f}%"])
+            print(table)
 
-        table = PrettyTable()
-        table.field_names = ["SKU", "Product Name", "Margin %"]
-        for margin in filtered_margins:
-            table.add_row([margin['SKU'], margin['Product Name'], f"{margin['Margin %']:.2f}%"])
-        print(table)
     else:
         print("Invalid choice.")
+
 
 def clean_price(price_str):
     """Remove any non-numeric characters and convert to float."""
