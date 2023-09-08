@@ -16,36 +16,49 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('fishing_tackle')
 users_sheet = SHEET.worksheet('user')
 
-def login(email, password):
-    user_data = users_sheet.get_all_records()
-    
-    # Check if the email format is valid
-    if not is_valid_email(email):
-        print("\nInvalid email format!")
-        return False
+def login():
+    """Allow a user to log in."""
+    while True:
+        email = input("Enter your email (or press Enter to go back): ")
 
-    # Get all email records from the previously fetched data
-    email_records = [user['User'] for user in user_data]
+        # Check if the email input is blank, then return to the main menu
+        if not email:
+            return False
 
-    # Check if the email exists in the database
-    if email not in email_records:
-        print("\nEmail not found in our database.")
-        return False
+        # Check if the email format is valid
+        if not is_valid_email(email):
+            print("\nInvalid email format!")
+            continue
 
-    # If the email is valid and exists, then check the password
-    for user in user_data:
-        if user['User'] == email and user['Password'] == password:
-            last_login = user['Last Login']
-            print(f"\nWelcome {email}! You are now logged in.")
-            if last_login:
-                print(f"Your last login was on {last_login}.")
-            update_last_login(email)
-            return True
-    
-    # If the function hasn't returned yet, then the password is incorrect
-    print("\nInvalid password!")
-    return False
+        # Get all email records from the previously fetched data
+        user_data = users_sheet.get_all_records()
+        email_records = [user['User'] for user in user_data]
 
+        # Check if the email exists in the database
+        if email not in email_records:
+            print("\nEmail not found in our database.")
+            continue
+
+        # If the email is valid and exists, then prompt for the password
+        while True:
+            password = input("Enter your password (or press Enter to go back): ")
+
+            if not password:
+                break  # This will exit the password loop and go back to asking for email
+
+            # If the email is valid and exists, then check the password
+            for user in user_data:
+                if user['User'] == email and user['Password'] == password:
+                    last_login = user['Last Login']
+                    print(f"\nWelcome {email}! You are now logged in.")
+                    if last_login:
+                        print(f"Your last login was on {last_login}.")
+                    update_last_login(email)
+                    return True
+
+            # If the function hasn't returned yet, then the password is incorrect
+            print("\nInvalid password!")
+            continue
 
 def signup():
     while True:
