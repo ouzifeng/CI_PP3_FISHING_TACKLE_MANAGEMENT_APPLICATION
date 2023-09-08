@@ -24,29 +24,32 @@ def main():
         else:
             print("Invalid choice!")
 
-    while logged_in:
-        print("\nWhat do you want to do?")
-        print("1. View all out-of-stock products")
-        print("2. Create a new product")
-        print("3. Update Product Details")
-        print("4. Delete a Product")
-        print("5. Log out")
-        
-        choice = input("Select an option: ")
+while logged_in:
+    print("\nWhat do you want to do?")
+    print("1. View all out-of-stock products")
+    print("2. Create a new product")
+    print("3. Update Product Details")
+    print("4. Delete a Product")
+    print("5. Check Product Margins")
+    print("6. Log out")
+    
+    choice = input("Select an option: ")
 
-        if choice == '1':
-            check_out_of_stock()
-        elif choice == '2':
-            create_product()
-        elif choice == '3':
-            update_product_details()
-        elif choice == '4':
-            delete_product()
-        elif choice == '5':
-            logged_in = False
-            print("Logged out successfully!")
-        else:
-            print("Invalid choice!")
+    if choice == '1':
+        check_out_of_stock()
+    elif choice == '2':
+        create_product()
+    elif choice == '3':
+        update_product_details()
+    elif choice == '4':
+        delete_product()
+    elif choice == '5':
+        check_product_margins()
+    elif choice == '6':
+        logged_in = False
+        print("Logged out successfully!")
+    else:
+        print("Invalid choice!")
 
 
 if __name__ == "__main__":
