@@ -19,45 +19,52 @@ users_sheet = SHEET.worksheet('user')
 def login():
     """Allow a user to log in."""
     while True:
-        email = input("Enter your email (or press Enter to go back): ")
+        try:
+            email = input("Enter your email (or press Enter to go back): ")
 
-        # Check if the email input is blank, then return to the main menu
-        if not email:
-            return False
+            # Check if the email input is blank, then return to the main menu
+            if not email:
+                return False
 
-        # Check if the email format is valid
-        if not is_valid_email(email):
-            print("\nInvalid email format!")
-            continue
+            # Check if the email format is valid
+            if not is_valid_email(email):
+                raise ValueError("\nInvalid email format!")
 
-        # Get all email records from the previously fetched data
-        user_data = users_sheet.get_all_records()
-        email_records = [user['User'] for user in user_data]
+            # Try fetching data from Google Sheets
+            try:
+                user_data = users_sheet.get_all_records()
+            except Exception as e:
+                print(f"Error fetching data from Google Sheets: {e}")
+                return False
 
-        # Check if the email exists in the database
-        if email not in email_records:
-            print("\nEmail not found in our database.")
-            continue
+            email_records = [user['User'] for user in user_data]
 
-        # If the email is valid and exists, then prompt for the password
-        while True:
-            password = input("Enter your password (or press Enter to go back): ")
+            # Check if the email exists in the database
+            if email not in email_records:
+                raise ValueError("\nEmail not found in our database.")
 
-            if not password:
-                break  # This will exit the password loop and go back to asking for email
+            # If the email is valid and exists, then prompt for the password
+            while True:
+                password = input("Enter your password (or press Enter to go back): ")
 
-            # If the email is valid and exists, then check the password
-            for user in user_data:
-                if user['User'] == email and user['Password'] == password:
-                    last_login = user['Last Login']
-                    print(f"\nWelcome {email}! You are now logged in.")
-                    if last_login:
-                        print(f"Your last login was on {last_login}.")
-                    update_last_login(email)
-                    return True
+                if not password:
+                    break  # This will exit the password loop and go back to asking for email
 
-            # If the function hasn't returned yet, then the password is incorrect
-            print("\nInvalid password!")
+                # If the email is valid and exists, then check the password
+                for user in user_data:
+                    if user['User'] == email and user['Password'] == password:
+                        last_login = user['Last Login']
+                        print(f"\nWelcome {email}! You are now logged in.")
+                        if last_login:
+                            print(f"Your last login was on {last_login}.")
+                        update_last_login(email)
+                        return True
+
+                # If the function hasn't returned yet, then the password is incorrect
+                raise ValueError("\nInvalid password!")
+
+        except ValueError as e:
+            print(e)
             continue
 
 def signup():

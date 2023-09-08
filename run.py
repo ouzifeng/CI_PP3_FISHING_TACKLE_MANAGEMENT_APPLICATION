@@ -12,19 +12,22 @@ def main():
         print("1. Login")
         print("2. Sign up")
         print("3. Exit Application")
+        
+        try:
+            choice = input("Select an option: ")
 
-        choice = input("Select an option: ")
+            if choice == '1':
+                logged_in = login()
+                if logged_in:
+                    break
 
-        if choice == '1':
-            logged_in = login()
-            if logged_in:
-                break
-
-        elif choice == '2':
-            signup()
-        elif choice == '3':
-            exit()
-        else:
+            elif choice == '2':
+                signup()
+            elif choice == '3':
+                exit()
+            else:
+                raise ValueError
+        except ValueError:
             print("Invalid choice!")
 
     while logged_in:
@@ -35,24 +38,28 @@ def main():
         print("4. Delete a Product")
         print("5. Check Product Margins")
         print("6. Log out")
-        
-        choice = input("Select an option: ")
 
-        if choice == '1':
-            check_out_of_stock()
-        elif choice == '2':
-            create_product()
-        elif choice == '3':
-            update_product_details()
-        elif choice == '4':
-            delete_product()
-        elif choice == '5':
-            check_product_margins()
-        elif choice == '6':
-            logged_in = False
-            print("Logged out successfully!")
-        else:
-            print("Invalid choice!")
+        try:
+            choice = input("Select an option: ")
+
+            if choice == '1':
+                check_out_of_stock()
+            elif choice == '2':
+                create_product()
+            elif choice == '3':
+                update_product_details()
+            elif choice == '4':
+                delete_product()
+            elif choice == '5':
+                check_product_margins()
+            elif choice == '6':
+                logged_in = False
+                print("Logged out successfully!")
+            else:
+                raise ValueError
+        except ValueError:
+            print("\nINvalid choice. Please choose a number between 1 and 6")
+
 
 
 if __name__ == "__main__":
