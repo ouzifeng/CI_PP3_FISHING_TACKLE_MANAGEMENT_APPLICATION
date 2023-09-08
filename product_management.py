@@ -177,4 +177,53 @@ def create_product():
     products_sheet.append_row([sku, product_name, str(cost_price), str(rrp), str(stock)])
     
     print(f"Product {product_name} with SKU {sku} added successfully!")
+    
+def check_product_margins():
+    products_sheet = SHEET.worksheet('products')
+    products = products_sheet.get_all_records()
+
+    print("\nOptions:")
+    print("1. Show all product margins as % ranked from highest to lowest")
+    print("2. Filter out products with margins either above or below a certain %")
+    choice = input("Select an option: ")
+
+    margins = []
+    for product in products:
+        cost_price = float(product['Cost Price'])
+        rrp = float(product['RRP'])
+        margin_percentage = ((rrp - cost_price) / rrp) * 100 if rrp != 0 else 0
+        margins.append({
+            'SKU': product['SKU'],
+            'Product Name': product['Product Name'],
+            'Margin %': margin_percentage
+        })
+
+    if choice == '1':
+        sorted_margins = sorted(margins, key=lambda x: x['Margin %'], reverse=True)
+        table = PrettyTable()
+        table.field_names = ["SKU", "Product Name", "Margin %"]
+        for margin in sorted_margins:
+            table.add_row([margin['SKU'], margin['Product Name'], f"{margin['Margin %']:.2f}%"])
+        print(table)
+
+    elif choice == '2':
+        operation = input("Enter operation (either '>' or '<'): ")
+        threshold = float(input("Enter threshold percentage: "))
+        
+        if operation == '>':
+            filtered_margins = [m for m in margins if m['Margin %'] > threshold]
+        elif operation == '<':
+            filtered_margins = [m for m in margins if m['Margin %'] < threshold]
+        else:
+            print("Invalid operation.")
+            return
+        
+        table = PrettyTable()
+        table.field_names = ["SKU", "Product Name", "Margin %"]
+        for margin in filtered_margins:
+            table.add_row([margin['SKU'], margin['Product Name'], f"{margin['Margin %']:.2f}%"])
+        print(table)
+    else:
+        print("Invalid choice.")
+
 
