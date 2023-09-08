@@ -8,6 +8,7 @@ def main():
     logged_in = False
 
     while not logged_in:
+        print("\nWelcome to the fishing tackle management system")
         print("\nWhat do you want to do?")
         print("1. Login")
         print("2. Sign up")
