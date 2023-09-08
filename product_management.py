@@ -207,17 +207,24 @@ def check_product_margins():
         print(table)
 
     elif choice == '2':
-        operation = input("Enter operation (either '>' or '<'): ")
-        threshold = float(input("Enter threshold percentage: "))
-        
+        operation = None
+        while operation not in ['>', '<']:
+            operation = input("Enter operation (either '>' or '<'): ")
+            if operation not in ['>', '<']:
+                print("Invalid operation. Please enter either '>' or '<'.")
+
+        while True:
+            try:
+                threshold = float(input("Enter threshold percentage: "))
+                break
+            except ValueError:
+                print("Invalid input. Please enter a valid number.")
+
         if operation == '>':
             filtered_margins = [m for m in margins if m['Margin %'] > threshold]
-        elif operation == '<':
+        else:  # operation is '<'
             filtered_margins = [m for m in margins if m['Margin %'] < threshold]
-        else:
-            print("Invalid operation. Please try again")
-            return
-        
+
         table = PrettyTable()
         table.field_names = ["SKU", "Product Name", "Margin %"]
         for margin in filtered_margins:
