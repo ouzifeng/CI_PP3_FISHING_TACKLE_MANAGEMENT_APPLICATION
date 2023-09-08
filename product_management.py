@@ -143,7 +143,7 @@ def create_product():
 
     # Validate cost price
     while True:
-        cost_price_input = input("Enter the cost price of the product: ")
+        cost_price_input = input("Enter the cost price of the product: ").replace('£', '').strip()
         try:
             cost_price = float(cost_price_input)
             if '.' not in cost_price_input:
@@ -154,7 +154,7 @@ def create_product():
 
     # Validate RRP
     while True:
-        rrp_input = input("Enter the recommended retail price (RRP) of the product: ")
+        rrp_input = input("Enter the recommended retail price (RRP) of the product: ").replace('£', '').strip()
         try:
             rrp = float(rrp_input)
             if '.' not in rrp_input:
@@ -162,6 +162,7 @@ def create_product():
             break
         except ValueError:
             print("RRP must be a valid number!")
+
 
     # Validate stock level
     while True:
