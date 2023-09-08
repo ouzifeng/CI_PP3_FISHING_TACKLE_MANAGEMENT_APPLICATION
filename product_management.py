@@ -189,8 +189,8 @@ def check_product_margins():
 
     margins = []
     for product in products:
-        cost_price = float(product['Cost Price'])
-        rrp = float(product['RRP'])
+        cost_price = clean_price(product['Cost Price'])
+        rrp = clean_price(product['RRP'])
         margin_percentage = ((rrp - cost_price) / rrp) * 100 if rrp != 0 else 0
         margins.append({
             'SKU': product['SKU'],
@@ -215,7 +215,7 @@ def check_product_margins():
         elif operation == '<':
             filtered_margins = [m for m in margins if m['Margin %'] < threshold]
         else:
-            print("Invalid operation.")
+            print("Invalid operation. Please try again")
             return
         
         table = PrettyTable()
@@ -225,5 +225,12 @@ def check_product_margins():
         print(table)
     else:
         print("Invalid choice.")
+
+def clean_price(price_str):
+    """Remove any non-numeric characters and convert to float."""
+    cleaned_price = ''.join(filter(str.isdigit or str.isdecimal, price_str))
+    return float(cleaned_price) / 100  # Assuming the last two characters are pence/cents
+
+
 
 
