@@ -100,16 +100,13 @@ def check_out_of_stock():
     table = PrettyTable()
     
     # Set the headers for the table
-    table.field_names = ["SKU", "Product Name", "Cost Price", "RRP", "Stock"]
+    table.field_names = ["SKU", "Product Name"]
     
     # Add rows to the table
     for item in out_of_stock_items:
         sku = item.get('SKU', '-')
         product_name = item.get('Product Name', '-')
-        cost_price = item.get('Cost Price', '-')
-        rrp = item.get('RRP', '-')
-        stock = item.get('Stock', '-')
-        table.add_row([sku, product_name, cost_price, rrp, stock])
+        table.add_row([sku, product_name])
     
     # Print the table
     print(table)
