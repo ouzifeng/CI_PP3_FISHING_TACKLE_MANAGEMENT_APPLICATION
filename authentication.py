@@ -16,9 +16,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('fishing_tackle')
 users_sheet = SHEET.worksheet('user')
 
-def login():
-    email = input("Enter your email: ")
-    password = input("Enter your password: ")
+def login(email, password):
     user_data = users_sheet.get_all_records()
 
     for user in user_data:
@@ -31,6 +29,7 @@ def login():
             return True
     print("\nInvalid email or password.")
     return False
+
 
 def signup():
     while True:
