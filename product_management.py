@@ -104,8 +104,8 @@ def check_out_of_stock():
 
     # Adjust column widths
     table.max_width = {
-        "SKU": 15,
-        "Product Name": 60
+        "SKU": 10,
+        "Product Name": 40
     }
 
     # Add rows to the table
