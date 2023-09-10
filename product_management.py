@@ -101,6 +101,9 @@ def check_out_of_stock():
 
     # Set the headers for the table
     table.field_names = ["SKU", "Product Name"]
+    table.align["SKU"] = "l"
+    table.align["Product Name"] = "l"
+
 
     # Add rows to the table
     for item in out_of_stock_items:
@@ -219,6 +222,9 @@ def check_product_margins():
             sorted_margins = sorted(margins, key=lambda x: x['Margin %'], reverse=True)
             table = PrettyTable()
             table.field_names = ["SKU", "Product Name", "Margin %"]
+            table.align["SKU"] = "l"
+            table.align["Product Name"] = "l"
+            table.align["Margin %"] = "l"
             for margin in sorted_margins:
                 sku = str(margin['SKU'])[:10]  # Convert to string and truncate if longer than 10 characters
                 product_name = margin['Product Name'][:40]  # Truncate if longer than 40 characters
@@ -250,6 +256,9 @@ def check_product_margins():
             else:
                 table = PrettyTable()
             table.field_names = ["SKU", "Product Name", "Margin %"]
+            table.align["SKU"] = "l"
+            table.align["Product Name"] = "l"
+            table.align["Margin %"] = "l"
             for margin in filtered_margins:
                 sku = str(margin['SKU'])[:10]  # Convert to string and truncate if longer than 10 characters
                 product_name = margin['Product Name'][:40]  # Truncate if longer than 40 characters
