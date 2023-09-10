@@ -15,6 +15,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('fishing_tackle')
 products = SHEET.worksheet('products')
+test_products = SHEET.worksheet('test_products')  
 
 def update_product_details():
     sku = input("Enter SKU of the product you want to update: ")
@@ -60,7 +61,7 @@ def update_product_details():
         product_row = products.row_values(row_num)
     print("\nProduct details updated successfully!")
     
-def delete_product():
+def delete_product(sheet):
     sku = input("Enter SKU of the product you want to delete: ")
     cell = products.find(sku)
     if cell is None:
@@ -238,7 +239,7 @@ def check_product_margins():
 def clean_price(price_str):
     """Remove any non-numeric characters and convert to float."""
     cleaned_price = ''.join(filter(str.isdigit or str.isdecimal, price_str))
-    return float(cleaned_price) / 100  # Assuming the last two characters are pence/cents
+    return float(cleaned_price) / 100  # Assuming the last two characters are pence
 
 
 

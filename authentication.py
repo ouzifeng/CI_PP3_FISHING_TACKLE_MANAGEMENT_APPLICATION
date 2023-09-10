@@ -15,8 +15,9 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('fishing_tackle')
 users_sheet = SHEET.worksheet('user')
+test_users_sheet = SHEET.worksheet('test_user')  # Test sheet
 
-def login():
+def login(sheet=users_sheet):
     """Allow a user to log in."""
     while True:
         try:
@@ -34,8 +35,7 @@ def login():
             try:
                 user_data = users_sheet.get_all_records()
             except Exception as e:
-                print(f"Error fetching data from Google Sheets: {e}")
-                return False
+                raise ConnectionError(f"Error fetching data from Google Sheets: {e}")
 
             email_records = [user['User'] for user in user_data]
 
@@ -66,42 +66,46 @@ def login():
         except ValueError as e:
             print(e)
             continue
+        except ConnectionError as e:
+            print(e)
+            continue
 
-def signup():
+def signup(sheet=users_sheet):
     while True:
-        email = input("Enter your email: ")
-        if not is_valid_email(email):
-            print("Invalid email! Please adhere to the requirements.")
-            print("- Contains one '@' symbol.")
-            print("- Has a domain name after the '@' symbol.")
-            print("- Ends with a domain extension like .com, .org, etc.")
-            continue
-        user_data = users_sheet.col_values(1)  # Get all emails
-        if email in user_data:
-            print("Email already exists! Please try another one or log in.")
-            continue
-        break
-
-    while True:
-        print("\nPassword requirements:")
-        print("- At least 8 characters")
-        print("- At least one uppercase letter")
-        print("- At least one lowercase letter")
-        print("- At least one digit")
-        print("- At least one special character (e.g., !, @, #, $, etc.)")
-        print("- No spaces at the beginning or end")
-        password = input("\nEnter a password: ")
-
-        if not is_valid_password(password):
-            print("Invalid password! Please adhere to the requirements.")
-            continue
-
-        confirm_password = input("Re-enter password to confirm: ")
-        if password != confirm_password:
-            print("\nPasswords do not match! Please try again.")
-            continue
-        else:
+        try:
+            email = input("Enter your email: ")
+            if not is_valid_email(email):
+                raise ValueError("Invalid email! Please adhere to the requirements.")
+            user_data = sheet.col_values(1)  # Get all emails
+            if email in user_data:
+                raise ValueError("Email already exists! Please try another one or log in.")
             break
+        except ValueError as e:
+            print(e)
+            continue
+
+    while True:
+        try:
+            print("\nPassword requirements:")
+            print("- At least 8 characters")
+            print("- At least one uppercase letter")
+            print("- At least one lowercase letter")
+            print("- At least one digit")
+            print("- At least one special character (e.g., !, @, #, $, etc.)")
+            print("- No spaces at the beginning or end")
+            password = input("\nEnter a password: ")
+
+            if not is_valid_password(password):
+                raise ValueError("Invalid password! Please adhere to the requirements.")
+
+            confirm_password = input("Re-enter password to confirm: ")
+            if password != confirm_password:
+                raise ValueError("\nPasswords do not match! Please try again.")
+            else:
+                break
+        except ValueError as e:
+            print(e)
+            continue
 
     # Append the new user data
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -109,7 +113,7 @@ def signup():
     print(f"\nUser with email {email} successfully signed up!")
     return True
 
-def update_last_login(email):
+def update_last_login(email, sheet=users_sheet):
     cell = users_sheet.find(email)
     row_num = cell.row
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

@@ -1,6 +1,24 @@
 import unittest
 from utilities import is_valid_email, is_valid_password, get_integer_input, is_passwords_match, calculate_profit_margin
+from authentication import login, signup, update_last_login
+from product_management import update_product_details, delete_product, check_out_of_stock, create_product, check_product_margins
 from unittest.mock import patch
+from google.oauth2.service_account import Credentials
+import gspread
+
+# Google Sheets authentication
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+]
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('fishing_tackle')
+test_users_sheet = SHEET.worksheet('test_user')
+products_sheet = SHEET.worksheet('products')
+
 
 class TestUtilities(unittest.TestCase):
     
@@ -69,7 +87,45 @@ class TestCalculateProfitMargin(unittest.TestCase):
         self.assertEqual(calculate_profit_margin(150, 100), -0.5)
         
 
+class TestAuthentication(unittest.TestCase):
+    
+   
+    @patch('builtins.input', side_effect=['test@email.com', 'TestPassword1!'])
+    def test_valid_login(self, mock_input):
+        # Assuming you have added the 'sheet' parameter to the login function
+        result = login(sheet=test_users_sheet)
+        self.assertTrue(result)
+    
 
+
+# This is a custom Test Result class to provide more detailed output:
+class _TestResult(unittest.TextTestResult):
+    def addSuccess(self, test):
+        super().addSuccess(test)
+        self.stream.write('PASS ')
+        self.stream.write(self.getDescription(test))
+        self.stream.write("\n")
+
+    def addFailure(self, test, err):
+        super().addFailure(test, err)
+        self.stream.write('FAIL ')
+        self.stream.write(self.getDescription(test))
+        self.stream.write("\n")
+
+    def addError(self, test, err):
+        super().addError(test, err)
+        self.stream.write('ERROR ')
+        self.stream.write(self.getDescription(test))
+        self.stream.write("\n")
+
+    def addSkip(self, test, reason):
+        super().addSkip(test, reason)
+        self.stream.write('SKIP ')
+        self.stream.write(self.getDescription(test))
+        self.stream.write(f" ({reason})\n")
+
+class _TestRunner(unittest.TextTestRunner):
+    resultclass = _TestResult
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(testRunner=_TestRunner)
