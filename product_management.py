@@ -102,18 +102,17 @@ def check_out_of_stock():
     # Set the headers for the table
     table.field_names = ["SKU", "Product Name"]
 
-    # Adjust column widths
-    table.max_width = {
-        "SKU": 10,
-        "Product Name": 40
-    }
-
     # Add rows to the table
     for item in out_of_stock_items:
-        sku = item.get('SKU', '-')[:15]  # Truncate if longer than 15 characters
-        product_name = item.get('Product Name', '-')[:60]  # Truncate if longer than 60 characters
+        sku = str(item.get('SKU', '-'))[:10]  # Truncate if longer than 10 characters
+        product_name = item.get('Product Name', '-')[:40]  # Truncate if longer than 40 characters
         table.add_row([sku, product_name])
     
+    # Adjust column widths by truncating the content
+    for row in table._rows:
+        row[0] = row[0][:10]
+        row[1] = row[1][:40]
+
     # Print the table
     print(table)
 
@@ -221,8 +220,11 @@ def check_product_margins():
             table = PrettyTable()
             table.field_names = ["SKU", "Product Name", "Margin %"]
             for margin in sorted_margins:
-                table.add_row([margin['SKU'], margin['Product Name'], f"{margin['Margin %']:.2f}%"])
+                sku = str(margin['SKU'])[:10]  # Convert to string and truncate if longer than 10 characters
+                product_name = margin['Product Name'][:40]  # Truncate if longer than 40 characters
+                table.add_row([sku, product_name, f"{margin['Margin %']:.2f}%"])
             print(table)
+
 
         elif choice == '2':
             operation = None
@@ -247,10 +249,13 @@ def check_product_margins():
                 print(f"\nThere are no products with margins {'above' if operation == '>' else 'below'} {threshold}%.")
             else:
                 table = PrettyTable()
-                table.field_names = ["SKU", "Product Name", "Margin %"]
-                for margin in filtered_margins:
-                    table.add_row([margin['SKU'], margin['Product Name'], f"{margin['Margin %']:.2f}%"])
-                print(table)
+            table.field_names = ["SKU", "Product Name", "Margin %"]
+            for margin in filtered_margins:
+                sku = str(margin['SKU'])[:10]  # Convert to string and truncate if longer than 10 characters
+                product_name = margin['Product Name'][:40]  # Truncate if longer than 40 characters
+                table.add_row([sku, product_name, f"{margin['Margin %']:.2f}%"])
+            print(table)
+
 
         elif choice == '3':
             return  # Return to the main menu
