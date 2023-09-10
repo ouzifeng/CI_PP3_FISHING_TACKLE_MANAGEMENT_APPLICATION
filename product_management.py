@@ -127,38 +127,51 @@ def check_out_of_stock():
         
 def create_product():
     products_sheet = SHEET.worksheet('products')
-    
-    sku = input("Enter the SKU for the new product: ")
-    
-    # Validate product name
+
+    # Fetch existing SKUs from your product database or storage
+    existing_skus = [product['SKU'] for product in products_sheet.get_all_records()]
+
     while True:
-        product_name = input("Enter the name of the product: ")
-        if len(product_name) <= 3:
-            print("Product name must be more than 3 characters!")
+        sku = input("Enter the SKU for the new product: ")
+
+        # Check if the SKU already exists
+        if sku in existing_skus:
+            print("SKU already exists. Please enter a unique SKU.")
             continue
+
+        # Validate product name
+        while True:
+            product_name = input("Enter the name of the product: ")
+            if len(product_name) <= 3:
+                print("Product name must be more than 3 characters!")
+                continue
+            break
+
+        # Validate cost price
+        while True:
+            cost_price_input = input("Enter the cost price of the product: ").replace('£', '').strip()
+            try:
+                cost_price = float(cost_price_input)
+                if '.' not in cost_price_input:
+                    cost_price = "{:.2f}".format(cost_price)
+                break
+            except ValueError:
+                print("Cost price must be a valid number!")
+
+        # Validate RRP
+        while True:
+            rrp_input = input("Enter the recommended retail price (RRP) of the product: ").replace('£', '').strip()
+            try:
+                rrp = float(rrp_input)
+                if '.' not in rrp_input:
+                    rrp = "{:.2f}".format(rrp)
+                break
+            except ValueError:
+                print("RRP must be a valid number!")
+
+        # If the SKU is unique, you can proceed to create the product or store it in your database.
+        # Remember to break the loop to exit the SKU validation.
         break
-
-    # Validate cost price
-    while True:
-        cost_price_input = input("Enter the cost price of the product: ").replace('£', '').strip()
-        try:
-            cost_price = float(cost_price_input)
-            if '.' not in cost_price_input:
-                cost_price = "{:.2f}".format(cost_price)
-            break
-        except ValueError:
-            print("Cost price must be a valid number!")
-
-    # Validate RRP
-    while True:
-        rrp_input = input("Enter the recommended retail price (RRP) of the product: ").replace('£', '').strip()
-        try:
-            rrp = float(rrp_input)
-            if '.' not in rrp_input:
-                rrp = "{:.2f}".format(rrp)
-            break
-        except ValueError:
-            print("RRP must be a valid number!")
 
 
     # Validate stock level
@@ -232,7 +245,7 @@ def check_product_margins():
             print(table)
 
     else:
-        print("Invalid choice.")
+        print("Please choose option 1 or 2")
 
 
 def clean_price(price_str):

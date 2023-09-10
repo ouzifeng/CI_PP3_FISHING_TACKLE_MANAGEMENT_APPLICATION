@@ -58,7 +58,7 @@ def main():
             else:
                 raise ValueError
         except ValueError:
-            print("\nINvalid choice. Please choose a number between 1 and 6")
+            print("\nInvalid choice. Please choose a number between 1 and 6")
 
 
 
