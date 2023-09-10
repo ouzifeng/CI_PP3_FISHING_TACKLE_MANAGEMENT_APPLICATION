@@ -189,63 +189,69 @@ def create_product():
     print(f"Product {product_name} with SKU {sku} added successfully!")
     
 def check_product_margins():
-    products_sheet = SHEET.worksheet('products')
-    products = products_sheet.get_all_records()
+    while True:
+        products_sheet = SHEET.worksheet('products')
+        products = products_sheet.get_all_records()
 
-    print("\nOptions:")
-    print("1. Show all product margins as % ranked from highest to lowest")
-    print("2. Filter out products with margins either above or below a certain %")
-    choice = input("Select an option: ")
+        print("\nOptions:")
+        print("1. Show all product margins as % ranked from highest to lowest")
+        print("2. Filter out products with margins either above or below a certain %")
+        print("3. Back to main menu")
+        choice = input("Select an option: ")
 
-    margins = []
-    for product in products:
-        cost_price = clean_price(product['Cost Price'])
-        rrp = clean_price(product['RRP'])
-        margin_percentage = ((rrp - cost_price) / rrp) * 100 if rrp != 0 else 0
-        margins.append({
-            'SKU': product['SKU'],
-            'Product Name': product['Product Name'],
-            'Margin %': margin_percentage
-        })
+        if choice == '1':
+            margins = []
+            for product in products:
+                cost_price = clean_price(product['Cost Price'])
+                rrp = clean_price(product['RRP'])
+                margin_percentage = ((rrp - cost_price) / rrp) * 100 if rrp != 0 else 0
+                margins.append({
+                    'SKU': product['SKU'],
+                    'Product Name': product['Product Name'],
+                    'Margin %': margin_percentage
+                })
 
-    if choice == '1':
-        sorted_margins = sorted(margins, key=lambda x: x['Margin %'], reverse=True)
-        table = PrettyTable()
-        table.field_names = ["SKU", "Product Name", "Margin %"]
-        for margin in sorted_margins:
-            table.add_row([margin['SKU'], margin['Product Name'], f"{margin['Margin %']:.2f}%"])
-        print(table)
-
-    elif choice == '2':
-        operation = None
-        while operation not in ['>', '<']:
-            operation = input("Enter operation (either '>' or '<'): ")
-            if operation not in ['>', '<']:
-                print("Invalid operation. Please enter either '>' or '<'.")
-
-        while True:
-            try:
-                threshold = float(input("Enter threshold percentage: "))
-                break
-            except ValueError:
-                print("Invalid input. Please enter a valid number.")
-
-        if operation == '>':
-            filtered_margins = [m for m in margins if m['Margin %'] > threshold]
-        else:  # operation is '<'
-            filtered_margins = [m for m in margins if m['Margin %'] < threshold]
-        
-        if not filtered_margins:
-            print(f"\nThere are no products with margins {'above' if operation == '>' else 'below'} {threshold}%.")
-        else:
+            sorted_margins = sorted(margins, key=lambda x: x['Margin %'], reverse=True)
             table = PrettyTable()
             table.field_names = ["SKU", "Product Name", "Margin %"]
-            for margin in filtered_margins:
+            for margin in sorted_margins:
                 table.add_row([margin['SKU'], margin['Product Name'], f"{margin['Margin %']:.2f}%"])
             print(table)
 
-    else:
-        print("Please choose option 1 or 2")
+        elif choice == '2':
+            operation = None
+            while operation not in ['>', '<']:
+                operation = input("Enter operation (either '>' or '<'): ")
+                if operation not in ['>', '<']:
+                    print("Invalid operation. Please enter either '>' or '<'.")
+
+            while True:
+                try:
+                    threshold = float(input("Enter threshold percentage: "))
+                    break
+                except ValueError:
+                    print("Invalid input. Please enter a valid number.")
+
+            if operation == '>':
+                filtered_margins = [m for m in margins if m['Margin %'] > threshold]
+            else:  # operation is '<'
+                filtered_margins = [m for m in margins if m['Margin %'] < threshold]
+
+            if not filtered_margins:
+                print(f"\nThere are no products with margins {'above' if operation == '>' else 'below'} {threshold}%.")
+            else:
+                table = PrettyTable()
+                table.field_names = ["SKU", "Product Name", "Margin %"]
+                for margin in filtered_margins:
+                    table.add_row([margin['SKU'], margin['Product Name'], f"{margin['Margin %']:.2f}%"])
+                print(table)
+
+        elif choice == '3':
+            return  # Return to the main menu
+
+        else:
+            print("Invalid choice. Please choose a valid option (1, 2, or 3).")
+
 
 
 def clean_price(price_str):
