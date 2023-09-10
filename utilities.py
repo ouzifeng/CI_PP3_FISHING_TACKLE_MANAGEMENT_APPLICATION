@@ -27,3 +27,12 @@ def get_integer_input(prompt_message):
             return float(value)
         except ValueError:
             print("Invalid input! Please enter a number.")
+
+def calculate_profit_margin(cost_price, selling_price):
+    try:
+        return (selling_price - cost_price) / selling_price
+    except ZeroDivisionError:
+        return 0  # Or handle it in another appropriate manner
+
+def is_passwords_match(password1, password2):
+    return password1 == password2
