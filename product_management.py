@@ -98,14 +98,20 @@ def check_out_of_stock():
 
     # Create a table
     table = PrettyTable()
-    
+
     # Set the headers for the table
     table.field_names = ["SKU", "Product Name"]
-    
+
+    # Adjust column widths
+    table.max_width = {
+        "SKU": 15,
+        "Product Name": 60
+    }
+
     # Add rows to the table
     for item in out_of_stock_items:
-        sku = item.get('SKU', '-')
-        product_name = item.get('Product Name', '-')
+        sku = item.get('SKU', '-')[:15]  # Truncate if longer than 15 characters
+        product_name = item.get('Product Name', '-')[:60]  # Truncate if longer than 60 characters
         table.add_row([sku, product_name])
     
     # Print the table

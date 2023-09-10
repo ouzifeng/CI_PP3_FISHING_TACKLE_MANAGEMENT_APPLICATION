@@ -1,7 +1,6 @@
 import unittest
 from utilities import is_valid_email, is_valid_password, get_integer_input, is_passwords_match, calculate_profit_margin
-from authentication import login, signup, update_last_login
-from product_management import update_product_details, delete_product, check_out_of_stock, create_product, check_product_margins
+from authentication import login
 from unittest.mock import patch
 from google.oauth2.service_account import Credentials
 import gspread
