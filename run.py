@@ -1,18 +1,28 @@
 from authentication import login, is_valid_email
 from authentication import signup
-from product_management import update_product_details, delete_product, check_out_of_stock, create_product, check_product_margins
+from product_management import (
+    update_product_details,
+    delete_product,
+    check_out_of_stock,
+    create_product,
+    check_product_margins
+)
+
 
 def main():
     """Main function to prompt user for what they want to do."""
     logged_in = False
 
     while not logged_in:
-        print("\nWelcome to the fishing tackle management system. If at any time you need to exit the system, you can do so by pressing CTRL C")
+        print(
+            "\nWelcome to the fishing tackle management system. If at any "
+            "time you need to restart the system, press the red button "
+            "at the top labeled 'RUN PROGRAM'"
+        )
         print("\nWhat do you want to do?")
         print("1. Login")
         print("2. Sign up")
         print("3. Exit Application")
-        
         try:
             choice = input("Select an option: ")
 
@@ -59,7 +69,6 @@ def main():
                 raise ValueError
         except ValueError:
             print("\nInvalid choice. Please choose a number between 1 and 6")
-
 
 
 if __name__ == "__main__":

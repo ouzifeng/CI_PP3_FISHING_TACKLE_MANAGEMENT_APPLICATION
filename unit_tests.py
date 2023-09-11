@@ -1,5 +1,8 @@
 import unittest
-from utilities import is_valid_email, is_valid_password, get_integer_input, is_passwords_match, calculate_profit_margin
+from utilities import (
+    is_valid_email, is_valid_password, get_integer_input,
+    is_passwords_match, calculate_profit_margin
+)
 from authentication import login
 from unittest.mock import patch
 from google.oauth2.service_account import Credentials
@@ -20,7 +23,7 @@ products_sheet = SHEET.worksheet('products')
 
 
 class TestUtilities(unittest.TestCase):
-    
+
     def test_valid_email(self):
         self.assertTrue(is_valid_email("example@email.com"))
 
@@ -35,9 +38,10 @@ class TestUtilities(unittest.TestCase):
 
     def test_empty_email(self):
         self.assertFalse(is_valid_email(""))
-        
+
+
 class TestPasswordValidation(unittest.TestCase):
-    
+
     def test_valid_password(self):
         self.assertTrue(is_valid_password("Password1!"))
 
@@ -57,7 +61,7 @@ class TestPasswordValidation(unittest.TestCase):
         self.assertFalse(is_valid_password("Password1"))
 
     def test_password_with_spaces_at_ends(self):
-        self.assertFalse(is_valid_password(" Password1! "))        
+        self.assertFalse(is_valid_password(" Password1! "))
 
 
 class TestGetIntegerInput(unittest.TestCase):
@@ -66,6 +70,7 @@ class TestGetIntegerInput(unittest.TestCase):
     def test_get_integer_input(self, mock_input):
         self.assertEqual(get_integer_input("Enter number: "), 1.23)
 
+
 class TestPasswordMatch(unittest.TestCase):
 
     def test_passwords_match(self):
@@ -73,7 +78,8 @@ class TestPasswordMatch(unittest.TestCase):
 
     def test_passwords_do_not_match(self):
         self.assertFalse(is_passwords_match("password", "password123"))
-        
+
+
 class TestCalculateProfitMargin(unittest.TestCase):
 
     def test_positive_profit_margin(self):
@@ -84,21 +90,18 @@ class TestCalculateProfitMargin(unittest.TestCase):
 
     def test_negative_profit_margin(self):
         self.assertEqual(calculate_profit_margin(150, 100), -0.5)
-        
+
 
 class TestAuthentication(unittest.TestCase):
-    
-   
+
     @patch('builtins.input', side_effect=['test@email.com', 'TestPassword1!'])
     def test_valid_login(self, mock_input):
-        # Assuming you have added the 'sheet' parameter to the login function
         result = login(sheet=test_users_sheet)
         self.assertTrue(result)
-    
 
 
-# This is a custom Test Result class to provide more detailed output:
 class _TestResult(unittest.TextTestResult):
+
     def addSuccess(self, test):
         super().addSuccess(test)
         self.stream.write('PASS ')
@@ -123,8 +126,10 @@ class _TestResult(unittest.TextTestResult):
         self.stream.write(self.getDescription(test))
         self.stream.write(f" ({reason})\n")
 
+
 class _TestRunner(unittest.TextTestRunner):
     resultclass = _TestResult
+
 
 if __name__ == "__main__":
     unittest.main(testRunner=_TestRunner)

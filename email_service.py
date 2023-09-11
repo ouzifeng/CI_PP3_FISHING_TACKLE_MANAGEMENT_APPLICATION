@@ -2,15 +2,15 @@ import smtplib
 import json
 from email.mime.text import MIMEText
 
+
 def send_email(recipient_email, subject, out_of_stock_items):
     with open('creds.json', 'r') as file:
         creds = json.load(file)
         smtp_creds = creds['aws_smtp']
-    
-    smtp_server = smtp_creds['server']
-    smtp_port = smtp_creds['port']
-    smtp_username = smtp_creds['username']
-    smtp_password = smtp_creds['password']
+        smtp_server = smtp_creds['server']
+        smtp_port = smtp_creds['port']
+        smtp_username = smtp_creds['username']
+        smtp_password = smtp_creds['password']
 
     html_content = """
     <html>
@@ -47,10 +47,13 @@ def send_email(recipient_email, subject, out_of_stock_items):
         cost_price = item.get('Cost Price', '-')
         rrp = item.get('RRP', '-')
         stock = item.get('Stock', '-')
-        html_content += f"<tr><td>{sku}</td><td>{product_name}</td><td>{cost_price}</td><td>{rrp}</td><td>{stock}</td></tr>"
+        html_content += (
+            f"<tr><td>{sku}</td><td>{product_name}</td><td>{cost_price}</td>"
+            f"<td>{rrp}</td><td>{stock}</td></tr>"
+        )
 
     html_content += """
-        </table>
+    </table>
     </body>
     </html>
     """
