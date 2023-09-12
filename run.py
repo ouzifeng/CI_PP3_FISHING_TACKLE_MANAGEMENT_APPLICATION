@@ -7,6 +7,8 @@ from product_management import (
     create_product,
     check_product_margins
 )
+from colorama import init, Fore, Back, Style
+init(autoreset=True)
 
 
 def main():
@@ -15,14 +17,18 @@ def main():
 
     while not logged_in:
         print(
+            Fore.CYAN + Style.BRIGHT +
             "\nWelcome to the fishing tackle management system. If at any "
             "time you need to restart the system, press the red button "
             "at the top labeled 'RUN PROGRAM'"
         )
+        print(Fore.BLUE + r"""
+        ><(((º>  ><(((º>  ><(((º>
+        """)
         print("\nWhat do you want to do?")
-        print("1. Login")
-        print("2. Sign up")
-        print("3. Exit Application")
+        print(Fore.YELLOW + "1. Login")
+        print(Fore.YELLOW + "2. Sign up")
+        print(Fore.YELLOW + "3. Exit Application")
         try:
             choice = input("Select an option: ")
 
@@ -38,16 +44,16 @@ def main():
             else:
                 raise ValueError
         except ValueError:
-            print("Invalid choice!")
+            print(Fore.RED + "Invalid choice!")
 
     while logged_in:
         print("\nWhat do you want to do?")
-        print("1. View all out-of-stock products")
-        print("2. Create a new product")
-        print("3. Update Product Details")
-        print("4. Delete a Product")
-        print("5. Check Product Margins")
-        print("6. Log out")
+        print(Fore.YELLOW + "1. View all out-of-stock products")
+        print(Fore.YELLOW + "2. Create a new product")
+        print(Fore.YELLOW + "3. Update Product Details")
+        print(Fore.YELLOW + "4. Delete a Product")
+        print(Fore.YELLOW + "5. Check Product Margins")
+        print(Fore.YELLOW + "6. Log out")
 
         try:
             choice = input("Select an option: ")
@@ -64,11 +70,12 @@ def main():
                 check_product_margins()
             elif choice == '6':
                 logged_in = False
-                print("Logged out successfully!")
+                print(Fore.GREEN + "Logged out successfully!")
             else:
                 raise ValueError
         except ValueError:
-            print("\nInvalid choice. Please choose a number between 1 and 6")
+            print(Fore.RED + "\nInvalid choice. "
+                  "Please choose a number between 1 and 6")
 
 
 if __name__ == "__main__":

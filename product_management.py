@@ -148,7 +148,7 @@ def check_out_of_stock():
     elif choice == '2':
         return
     else:
-        print("Invalid choice!")
+        print(Fore.RED + "Invalid choice!")
 
 
 def create_product():
