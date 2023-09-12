@@ -38,12 +38,12 @@ def login(sheet=users_sheet):
             if email not in email_records:
                 raise ValueError("\nEmail not found in our database.")
 
-            while True: 
+            while True:
                 password = input("Enter your password "
                                  "(or press Enter to go back): ")
 
                 if not password:
-                    break 
+                    break
 
                 for user in user_data:
                     if (user['User'] == email and
@@ -55,12 +55,11 @@ def login(sheet=users_sheet):
                         update_last_login(email)
                         return True
 
-                print("\nInvalid password!") 
+                print("\nInvalid password!")
 
         except ValueError as e:
             print(e)
             continue
-
 
 
 def signup(sheet=users_sheet):
@@ -93,8 +92,9 @@ def signup(sheet=users_sheet):
                   "(e.g., !, @, #, $, etc.)")
             print("- No spaces at the beginning or end")
 
-            password = input("\nEnter a password (or press Enter to go back): ")
-            if not password:  # Check for empty input to exit
+            password = input("\nEnter a "
+                             "password (or press Enter to go back): ")
+            if not password:
                 return
             if not is_valid_password(password):
                 raise ValueError("Invalid password! "
