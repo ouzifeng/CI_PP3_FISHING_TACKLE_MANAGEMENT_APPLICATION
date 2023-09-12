@@ -8,7 +8,6 @@ from unittest.mock import patch
 from google.oauth2.service_account import Credentials
 import gspread
 
-# Google Sheets authentication
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -23,7 +22,7 @@ products_sheet = SHEET.worksheet('products')
 
 
 class TestUtilities(unittest.TestCase):
-
+    """Tests email validation on login"""
     def test_valid_email(self):
         self.assertTrue(is_valid_email("example@email.com"))
 
@@ -41,7 +40,7 @@ class TestUtilities(unittest.TestCase):
 
 
 class TestPasswordValidation(unittest.TestCase):
-
+    """Tests poassword validation on login"""
     def test_valid_password(self):
         self.assertTrue(is_valid_password("Password1!"))
 
@@ -65,14 +64,14 @@ class TestPasswordValidation(unittest.TestCase):
 
 
 class TestGetIntegerInput(unittest.TestCase):
-
+    """Tests integet input requirement"""
     @patch('builtins.input', side_effect=['a', 'b', '1.23'])
     def test_get_integer_input(self, mock_input):
         self.assertEqual(get_integer_input("Enter number: "), 1.23)
 
 
 class TestPasswordMatch(unittest.TestCase):
-
+    """Tests whether passwords match output"""
     def test_passwords_match(self):
         self.assertTrue(is_passwords_match("password", "password"))
 
@@ -81,7 +80,7 @@ class TestPasswordMatch(unittest.TestCase):
 
 
 class TestCalculateProfitMargin(unittest.TestCase):
-
+    """Tests calculating profit margins"""
     def test_positive_profit_margin(self):
         self.assertEqual(calculate_profit_margin(50, 100), 0.5)
 
@@ -93,7 +92,7 @@ class TestCalculateProfitMargin(unittest.TestCase):
 
 
 class TestAuthentication(unittest.TestCase):
-
+    """Tests logging in"""
     @patch('builtins.input', side_effect=['test@email.com', 'TestPassword1!'])
     def test_valid_login(self, mock_input):
         result = login(sheet=test_users_sheet)
@@ -101,7 +100,7 @@ class TestAuthentication(unittest.TestCase):
 
 
 class _TestResult(unittest.TextTestResult):
-
+    """Print test results"""
     def addSuccess(self, test):
         super().addSuccess(test)
         self.stream.write('PASS ')

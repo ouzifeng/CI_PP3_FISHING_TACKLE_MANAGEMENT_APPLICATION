@@ -1,27 +1,32 @@
-from utilities import get_integer_input
-from google.oauth2.service_account import Credentials
+import re
 import gspread
 from prettytable import PrettyTable
 from email_service import send_email
+from google.oauth2.service_account import Credentials
+from utilities import get_integer_input
 
-# Google Sheets authentication
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
 ]
+
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('fishing_tackle')
 products = SHEET.worksheet('products')
 
+
 def update_product_details():
+    """ Allows the user to update product SKU, Name, Stock and Prices """
     sku = input("Enter SKU of the product you want to update: ")
     cell = products.find(sku)
     if cell is None:
         print("Product with SKU", sku, "not found.")
-        choice = input("Would you like to create a new product with this SKU? (yes/no): ")
+        prompt_msg = ("Would you like to create a new product with this "
+                      "SKU? (yes/no): ")
+        choice = input(prompt_msg)
         if choice.lower() == 'yes':
             create_product()
         return
@@ -37,8 +42,11 @@ def update_product_details():
         print("3. RRP:", product_row[3])
         print("4. Stock:", product_row[4])
         print("5. Exit to previous menu")
-        print("\nWhich detail would you like to update? (Enter 1 for Product Name, 2 for Cost Price etc, or press Enter to skip):")
-        
+        prompt_msg = ("\nWhich detail would you like to update? "
+                      "(Enter 1 for Product Name, 2 for Cost Price etc, "
+                      "or press Enter to skip):")
+        print(prompt_msg)
+
         choice = input()
         if choice == '1':
             new_value = input("Enter new Product Name: ")
@@ -59,12 +67,15 @@ def update_product_details():
             print("Invalid choice. Please select a valid option.")
         product_row = products.row_values(row_num)
     print("\nProduct details updated successfully!")
-    
+
+
 def delete_product():
+    """ Allows the user to delete a product """
     sku = input("Enter SKU of the product you want to delete: ")
     cell = products.find(sku)
     if cell is None:
-        print("\nProduct with SKU", sku, "not found. Please choose another option")
+        print("\nProduct with SKU", sku,
+              "not found. Please choose another option")
         return
     else:
         row_num = cell.row
@@ -75,9 +86,13 @@ def delete_product():
     print("Cost Price:", product_row[2])
     print("RRP:", product_row[3])
     print("Stock:", product_row[4])
-    choice = input("\nAre you sure you want to delete this product? (yes/no): ")
+    prompt_msg = ("\nAre you sure you want to delete this product? "
+                  "(yes/no): ")
+    choice = input(prompt_msg)
     if choice.lower() == 'yes':
-        double_check = input("This action is irreversible. Confirm deletion? (yes/no): ")
+        double_check_msg = ("This action is irreversible. "
+                            "Confirm deletion? (yes/no): ")
+        double_check = input(double_check_msg)
         if double_check.lower() == 'yes':
             products.delete_rows(row_num, row_num)
             print("Product deleted successfully!")
@@ -85,200 +100,183 @@ def delete_product():
             print("Product deletion canceled.")
     else:
         print("Product deletion canceled.")
-        
+
+
 def check_out_of_stock():
-    """Prints out products that are out of stock."""
+    """ Prints out products that are out of stock. """
     products = SHEET.worksheet('products')
     records = products.get_all_records()
-    out_of_stock_items = [record for record in records if record and record.get('Stock', 1) <= 0]
-    
+    out_of_stock_items = [
+        record for record in records
+        if record and record.get('Stock', 1) <= 0
+    ]
+
     if not out_of_stock_items:
         print("All products are in stock!")
         return
 
-    # Create a table
     table = PrettyTable()
 
-    # Set the headers for the table
     table.field_names = ["SKU", "Product Name"]
     table.align["SKU"] = "l"
     table.align["Product Name"] = "l"
 
-
-    # Add rows to the table
     for item in out_of_stock_items:
-        sku = str(item.get('SKU', '-'))[:10]  # Truncate if longer than 10 characters
-        product_name = item.get('Product Name', '-')[:40]  # Truncate if longer than 40 characters
+        sku = str(item.get('SKU', '-'))[:10]
+        product_name = item.get('Product Name', '-')[:40]
         table.add_row([sku, product_name])
-    
-    # Adjust column widths by truncating the content
+
     for row in table._rows:
         row[0] = row[0][:10]
         row[1] = row[1][:40]
 
-    # Print the table
     print(table)
 
-    print("\nWould you like to:")
-    print("1. Send an email with these products for you to order")
-    print("2. Back to main menu")
+    menu_options = (
+        "\nWould you like to:\n"
+        "1. Send an email with these products for you to order\n"
+        "2. Back to main menu"
+    )
+    print(menu_options)
     choice = input("Select an option: ")
 
     if choice == '1':
         recipient_email = input("Enter the email address to send to: ")
-        send_email(recipient_email, "Out of Stock Products", out_of_stock_items)
+        subject = "Out of Stock Products"
+        send_email(recipient_email, subject, out_of_stock_items)
         print("Email sent successfully!")
     elif choice == '2':
         return
     else:
         print("Invalid choice!")
-        
+
+
 def create_product():
+    """ Allows the user to create a new product """
     products_sheet = SHEET.worksheet('products')
 
-    # Fetch existing SKUs from your product database or storage
-    existing_skus = [product['SKU'] for product in products_sheet.get_all_records()]
+    products = products_sheet.get_all_records()
+    existing_skus = [product['SKU'] for product in products]
 
     while True:
         sku = input("Enter the SKU for the new product: ")
-
-        # Check if the SKU already exists
         if sku in existing_skus:
             print("SKU already exists. Please enter a unique SKU.")
             continue
-
-        # Validate product name
-        while True:
-            product_name = input("Enter the name of the product: ")
-            if len(product_name) <= 3:
-                print("Product name must be more than 3 characters!")
-                continue
-            break
-
-        # Validate cost price
-        while True:
-            cost_price_input = input("Enter the cost price of the product: ").replace('£', '').strip()
-            try:
-                cost_price = float(cost_price_input)
-                if '.' not in cost_price_input:
-                    cost_price = "{:.2f}".format(cost_price)
-                break
-            except ValueError:
-                print("Cost price must be a valid number!")
-
-        # Validate RRP
-        while True:
-            rrp_input = input("Enter the recommended retail price (RRP) of the product: ").replace('£', '').strip()
-            try:
-                rrp = float(rrp_input)
-                if '.' not in rrp_input:
-                    rrp = "{:.2f}".format(rrp)
-                break
-            except ValueError:
-                print("RRP must be a valid number!")
-
-        # If the SKU is unique, you can proceed to create the product or store it in your database.
-        # Remember to break the loop to exit the SKU validation.
-        break
-
-
-    # Validate stock level
-    while True:
-        stock_input = input("Enter the stock level of the product: ")
+        prompt_msg = "Enter the name of the product (more than 3 chars): "
+        product_name = input(prompt_msg)
+        if len(product_name) <= 3:
+            print("Product name must be more than 3 characters!")
+            continue
         try:
-            stock = int(stock_input)
+            prompt_cost = "Enter the cost price: "
+            cost_price = float(input(prompt_cost).replace('£', '').strip())
+            prompt_rrp = "Enter the RRP of the product: "
+            rrp = float(input(prompt_rrp).replace('£', '').strip())
+            stock = int(input("Enter the stock level: "))
             break
         except ValueError:
-            print("Stock level must be a valid integer!")
+            print("Enter valid values for price and stock!")
 
-    # Append the new product data to the worksheet
-    products_sheet.append_row([sku, product_name, str(cost_price), str(rrp), str(stock)])
-    
+    new_row = [
+        sku,
+        product_name,
+        f"{cost_price:.2f}",
+        f"{rrp:.2f}",
+        str(stock)
+    ]
+    products_sheet.append_row(new_row)
     print(f"Product {product_name} with SKU {sku} added successfully!")
-    
-def check_product_margins():
-    while True:
-        products_sheet = SHEET.worksheet('products')
-        products = products_sheet.get_all_records()
 
+
+def check_product_margins():
+    """Shows product margins of all products, and filter margins"""
+    products_sheet = SHEET.worksheet('products')
+    products = products_sheet.get_all_records()
+
+    while True:
         print("\nOptions:")
         print("1. Show all product margins as % ranked from highest to lowest")
-        print("2. Filter out products with margins either above or below a certain %")
+        print("2. Filter out products with margins"
+              "either above or below a certain %")
         print("3. Back to main menu")
         choice = input("Select an option: ")
 
         if choice == '1':
             margins = []
             for product in products:
-                cost_price = clean_price(product['Cost Price'])
                 rrp = clean_price(product['RRP'])
-                margin_percentage = ((rrp - cost_price) / rrp) * 100 if rrp != 0 else 0
+                cost = clean_price(product['Cost Price'])
+                margin_percentage = ((rrp - cost) / rrp) * 100 if rrp else 0
                 margins.append({
                     'SKU': product['SKU'],
                     'Product Name': product['Product Name'],
                     'Margin %': margin_percentage
                 })
 
-            sorted_margins = sorted(margins, key=lambda x: x['Margin %'], reverse=True)
+            def key_func(x):
+                return x['Margin %']
+            sorted_margins = sorted(margins, key=key_func, reverse=True)
             table = PrettyTable()
             table.field_names = ["SKU", "Product Name", "Margin %"]
             table.align["SKU"] = "l"
             table.align["Product Name"] = "l"
             table.align["Margin %"] = "l"
             for margin in sorted_margins:
-                sku = str(margin['SKU'])[:10]  # Convert to string and truncate if longer than 10 characters
-                product_name = margin['Product Name'][:40]  # Truncate if longer than 40 characters
-                table.add_row([sku, product_name, f"{margin['Margin %']:.2f}%"])
+                sku = str(margin['SKU'])[:10]
+                product_name = margin['Product Name'][:40]
+                margin_value = f"{margin['Margin %']:.2f}%"
+                table.add_row([sku, product_name, margin_value])
             print(table)
-
 
         elif choice == '2':
-            operation = None
-            while operation not in ['>', '<']:
-                operation = input("Enter operation (either '>' or '<'): ")
-                if operation not in ['>', '<']:
-                    print("Invalid operation. Please enter either '>' or '<'.")
+            operation = input("Enter operation (either '>' or '<'): ")
+            if operation not in ['>', '<']:
+                print("Invalid operation. Retry.")
+                continue
+            try:
+                threshold = float(input("Enter threshold percentage: "))
+            except ValueError:
+                print("Invalid input. Retry.")
+                continue
 
-            while True:
-                try:
-                    threshold = float(input("Enter threshold percentage: "))
-                    break
-                except ValueError:
-                    print("Invalid input. Please enter a valid number.")
+            def meets_threshold(margin, op, thresh):
+                if op == '>':
+                    return margin['Margin %'] > thresh
+                if op == '<':
+                    return margin['Margin %'] < thresh
+                return False
 
-            if operation == '>':
-                filtered_margins = [m for m in margins if m['Margin %'] > threshold]
-            else:  # operation is '<'
-                filtered_margins = [m for m in margins if m['Margin %'] < threshold]
+            filtered_margins = [
+                m for m in margins
+                if meets_threshold(m, operation, threshold)
+            ]
 
             if not filtered_margins:
-                print(f"\nThere are no products with margins {'above' if operation == '>' else 'below'} {threshold}%.")
+                margin_direction = 'above' if operation == '>' else 'below'
+                print(f"\nNo products with margins {margin_direction} "
+                      f"{threshold}%.")
             else:
                 table = PrettyTable()
-            table.field_names = ["SKU", "Product Name", "Margin %"]
-            table.align["SKU"] = "l"
-            table.align["Product Name"] = "l"
-            table.align["Margin %"] = "l"
-            for margin in filtered_margins:
-                sku = str(margin['SKU'])[:10]  # Convert to string and truncate if longer than 10 characters
-                product_name = margin['Product Name'][:40]  # Truncate if longer than 40 characters
-                table.add_row([sku, product_name, f"{margin['Margin %']:.2f}%"])
-            print(table)
-
+                table.field_names = ["SKU", "Product Name", "Margin %"]
+                table.align["SKU"] = "l"
+                table.align["Product Name"] = "l"
+                table.align["Margin %"] = "l"
+                for margin in filtered_margins:
+                    sku = str(margin['SKU'])[:10]
+                    product_name = margin['Product Name'][:40]
+                    margin_value = f"{margin['Margin %']:.2f}%"
+                    table.add_row([sku, product_name, margin_value])
+                print(table)
 
         elif choice == '3':
-            return  # Return to the main menu
+            return
 
         else:
-            print("Invalid choice. Please choose a valid option (1, 2, or 3).")
-
+            print("Invalid choice. Retry.")
 
 
 def clean_price(price_str):
     """Remove any non-numeric characters and convert to float."""
     cleaned_price = ''.join(filter(str.isdigit or str.isdecimal, price_str))
-    return float(cleaned_price) / 100  # Assuming the last two characters are pence
-
-
-
-
+    return float(cleaned_price) / 100

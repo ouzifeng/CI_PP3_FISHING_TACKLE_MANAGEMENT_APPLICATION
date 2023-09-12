@@ -6,7 +6,6 @@ import gspread
 
 from utilities import is_valid_email, is_valid_password
 
-# Google Sheets authentication
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -18,11 +17,11 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('fishing_tackle')
 users_sheet = SHEET.worksheet('user')
-test_users_sheet = SHEET.worksheet('test_user')  # Test sheet
+test_users_sheet = SHEET.worksheet('test_user')
 
 
 def login(sheet=users_sheet):
-    """Allow a user to log in."""
+    """Allows the user to log in."""
     while True:
         try:
             email = input("Enter your email (or press Enter to go back): ")
@@ -60,6 +59,7 @@ def login(sheet=users_sheet):
 
 
 def signup(sheet=users_sheet):
+    """Allows a user to sign up."""
     while True:
         try:
             email = input("Enter your email: ")
@@ -107,6 +107,7 @@ def signup(sheet=users_sheet):
 
 
 def update_last_login(email, sheet=users_sheet):
+    """Updates and saves the last time the user signed in"""
     cell = sheet.find(email)
     row_num = cell.row
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

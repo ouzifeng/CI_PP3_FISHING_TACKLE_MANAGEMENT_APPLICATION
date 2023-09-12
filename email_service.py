@@ -4,6 +4,7 @@ from email.mime.text import MIMEText
 
 
 def send_email(recipient_email, subject, out_of_stock_items):
+    """Sends user email of a table for all out of stock items"""
     with open('creds.json', 'r') as file:
         creds = json.load(file)
         smtp_creds = creds['aws_smtp']
