@@ -38,31 +38,38 @@ def login(sheet=users_sheet):
             if email not in email_records:
                 raise ValueError("\nEmail not found in our database.")
 
-            password = input("Enter your password "
-                             "(or press Enter to go back): ")
+            while True: 
+                password = input("Enter your password "
+                                 "(or press Enter to go back): ")
 
-            for user in user_data:
-                if (user['User'] == email and
-                        user['Password'] == password):
-                    last_login = user['Last Login']
-                    print(f"\nWelcome {email}! You are now logged in.")
-                    if last_login:
-                        print(f"Your last login was on {last_login}.")
-                    update_last_login(email)
-                    return True
+                if not password:
+                    break 
 
-            raise ValueError("\nInvalid password!")
+                for user in user_data:
+                    if (user['User'] == email and
+                            user['Password'] == password):
+                        last_login = user['Last Login']
+                        print(f"\nWelcome {email}! You are now logged in.")
+                        if last_login:
+                            print(f"Your last login was on {last_login}.")
+                        update_last_login(email)
+                        return True
+
+                print("\nInvalid password!") 
 
         except ValueError as e:
             print(e)
             continue
 
 
+
 def signup(sheet=users_sheet):
     """Allows a user to sign up."""
     while True:
         try:
-            email = input("Enter your email: ")
+            email = input("Enter your email (or press Enter to go back): ")
+            if not email:  # Check for empty input to exit
+                return
             if not is_valid_email(email):
                 raise ValueError("Invalid email! "
                                  "Please adhere to the requirements.")
@@ -86,8 +93,9 @@ def signup(sheet=users_sheet):
                   "(e.g., !, @, #, $, etc.)")
             print("- No spaces at the beginning or end")
 
-            password = input("\nEnter a password: ")
-
+            password = input("\nEnter a password (or press Enter to go back): ")
+            if not password:  # Check for empty input to exit
+                return
             if not is_valid_password(password):
                 raise ValueError("Invalid password! "
                                  "Please adhere to the requirements.")
