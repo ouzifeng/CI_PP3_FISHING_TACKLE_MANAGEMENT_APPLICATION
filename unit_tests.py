@@ -7,6 +7,9 @@ from authentication import login
 from unittest.mock import patch
 from google.oauth2.service_account import Credentials
 import gspread
+from colorama import Fore, init
+init(autoreset=True)
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -103,25 +106,25 @@ class _TestResult(unittest.TextTestResult):
     """Print test results"""
     def addSuccess(self, test):
         super().addSuccess(test)
-        self.stream.write('PASS ')
+        self.stream.write(Fore.GREEN + 'PASS ')
         self.stream.write(self.getDescription(test))
         self.stream.write("\n")
 
     def addFailure(self, test, err):
         super().addFailure(test, err)
-        self.stream.write('FAIL ')
+        self.stream.write(Fore.RED + 'FAIL ')
         self.stream.write(self.getDescription(test))
         self.stream.write("\n")
 
     def addError(self, test, err):
         super().addError(test, err)
-        self.stream.write('ERROR ')
+        self.stream.write(Fore.RED + 'ERROR ')
         self.stream.write(self.getDescription(test))
         self.stream.write("\n")
 
     def addSkip(self, test, reason):
         super().addSkip(test, reason)
-        self.stream.write('SKIP ')
+        self.stream.write(Fore.YELLOW + 'SKIP ')
         self.stream.write(self.getDescription(test))
         self.stream.write(f" ({reason})\n")
 
