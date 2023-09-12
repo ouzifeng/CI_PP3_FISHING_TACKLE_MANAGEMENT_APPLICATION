@@ -14,6 +14,8 @@ They estimate that this will half the time they currently spend managing the Goo
 
 ### Business Requirements
 
+As the end user and the customer are the same, they have given a set of clearly defined requirements the application needs to adhere to:
+
 1. Allow user to login and sign up
 2. Validate email and passwords, and give instructions on pw requirements
 3. Have a clear and easy to use main menu
@@ -29,5 +31,57 @@ They estimate that this will half the time they currently spend managing the Goo
 13. If an update product is not found, give option to create a new product
 14. Avoid menu loops, if input(s) are invalid allow user to input again. Do not default back to the current menu option
 15. Fishing tackle product names can be long, make sure any tables printed to the terminal as less than 80 characters in width
+
+### Target Audience
+
+ALthough this application has been designed for a specific online store, any store that uses Google Sheets to manage products can integrate this software. However the sheets must be setup as so:
+
+ **Sheet Name**   | **Column 1 Header**  | **Column 2 Header** | **Column 4 Header** | **Column 5 Header** |
+| --------------- | -------------------- | ------------------- | ------------------- | ------------------- |
+| products | SKU | Product Name | Cost Price | RRP | Stock |
+| user | User | Password | Last Login |
+| test_user | User | Password | Last Login |
+
+## Technical Design
+
+### Flowchart
+
+This floawchart was created using Lucidcharts to plot out how the user flows through the app
+
+## Technologies Used
+
+#### Languages
+
+* Python was the programming language used for the application
+* HTML was used to structure the email content
+
+#### Frameworks and Tools
+
+* Lucidcharts for the wireframes
+* Googlesheets to host the data
+* Googlesheets API to interface with the application and the Googlesheets
+* Heroku was used to host the application
+* Git was used for version control
+* CI Python Linter was used to check PEP8 conformity 
+* Github was used for saving files and deploying automatically to Heroku on deployment changes
+* AmIresponsive was used to test the application across different devices
+* AWS SES was used as the email client
+
+### Python & Third Party Libraries
+
+* re - for checking inputs passed requirements
+* os - used to clear terminal
+* gspread - a python API for Google Sheets
+* prettytable - to build the tables printed in the console
+* coverage - to measure how much of the application is being tested via automated unit testing
+* colorama - to provide a more interactive interface
+* datetime - to store timestamps of logins
+* google-auth - to authenticate Googles APIs
+* unittest - to build unit testings
+
+### Features
+
+
+
 
 
