@@ -92,7 +92,7 @@ This flowchart was created using Lucidcharts to plot out how the user flows thro
     <img src="docs/features/main-menu.png" alt="Main Menu">
 </details>  
 
-Solves business requirement 1
+Solves business requirement 1, 14
 
 #### Login/Signup
 
@@ -118,5 +118,34 @@ Solves business requirement 1
     <img src="docs/features/signup-val-3.png" alt="Sign up area 3">
 </details>  
 
-Solves business requirements 1,2,3,4
+Solves business requirements 1,2,3,6, 14
+
+
+#### Product Management Menu
+
+1. Clear and easy to navigate
+2. Option to check out of stock products
+3. Option to start managing products
+4. Option to start deleting products
+5. Option to start checking product margins
+
+<details>
+    <summary>Product Management Menu</summary>
+    <img src="docs/features/product-management-menu.png" alt="Product Management Menu">
+</details> 
+
+Solves business requirements 3
+
+#### Out of stock products
+
+1. View all out of stock products
+2. User will want to place an order with the manufacturer for stock, so an email can be send as a table with all the OOS products
+3. Option to go abck to the main menu
+
+<details>
+    <summary>Out of stock products</summary>
+    <img src="docs/features/oos-1.png" alt="Print out of stock products">
+    <img src="docs/features/oos-2.png" alt="Send email with out of stock products">
+    <img src="docs/features/oos-3.png" alt="Out of stock products email">
+</details> 
 
