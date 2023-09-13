@@ -117,7 +117,7 @@ Solves business requirement 1, 14
     <img src="docs/features/signup-val-3.png" alt="Sign up area 3">
 </details>  
 
-Solves business requirements 1,2,3,6, 14
+Solves business requirements 1, 2, 3, 6
 
 
 #### Product Management Menu
@@ -149,7 +149,7 @@ Solves business requirements 3
     <img src="docs/features/oos-3.png" alt="Out of stock products email">
 </details> 
 
-Solves business requirement 3, 4, 5
+Solves business requirement 3, 4, 5, 14
 
 #### Create new product
 
@@ -219,4 +219,49 @@ Solves business requirement 10
     <img src="docs/features/margins-3.png" alt="Filter out products">
 </details> 
 
-Solves business requirement 11, 
+Solves business requirement 11, 12, 14
+
+### Testing
+
+#### Automated Unit Testing
+
+Pythons unit testing was used to build 19 automated tests. This can be run by executing the unit_tests.py file using python3 unit_tests.py
+
+
+<details>
+    <summary>Automated Unit Testing</summary>
+    <img src="docs/unittests/testing.png" alt="Unit testing">
+</details> 
+
+A green PASS indicates the test ran successfully. A red FAIL would mean the opposite
+
+Functions tested:
+
+
+Python's Coverage was also used to understand how much of the applications functionality was being tested
+
+<img src="docs/unittests/coverage-py-results.png" alt="Coverage">
+
+#### PEP8
+
+[PEP8 Python Validator](https://pep8ci.herokuapp.com/) was used to validate the code.
+
+This validator was provided by Code Institute.
+
+No errors were found.
+
+<details>
+    <summary>PEP8</summary>
+    <img src="docs/validation/pep-1.png" alt="authentication.py">
+    <img src="docs/validation/pep-2.png" alt="email_service.py">
+    <img src="docs/validation/pep-3.png" alt="product_management.py">
+    <img src="docs/validation/pep-4.png" alt="run.py">
+    <img src="docs/validation/pep-5.png" alt="unit_tests.py">
+    <img src="docs/validation/pep-6.png" alt="utilities.py">
+</details> 
+
+#### Manual Testing
+
+
+
+

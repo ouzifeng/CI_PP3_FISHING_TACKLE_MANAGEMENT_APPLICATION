@@ -197,7 +197,7 @@ def check_product_margins():
     while True:
         print("\nOptions:")
         print("1. Show all product margins as % ranked from highest to lowest")
-        print("2. Filter out products with margins"
+        print("2. Filter out products with margins "
               "either above or below a certain %")
         print("3. Back to main menu")
         choice = input("Select an option: ")
