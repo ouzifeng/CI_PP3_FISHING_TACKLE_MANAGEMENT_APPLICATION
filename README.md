@@ -29,8 +29,7 @@ As the end user and the customer are the same, they have given a set of clearly 
 11. Print out a list of all products with their margins, from highest margin to lowest
 12. Have a margin filter feature, so the user can filter out/in products above/below a certain margin %, with input validation
 13. If an update product is not found, give option to create a new product
-14. Avoid menu loops, if input(s) are invalid allow user to input again. Do not default back to the current menu option
-15. Fishing tackle product names can be long, make sure any tables printed to the terminal as less than 80 characters in width
+14. Fishing tackle product names can be long, make sure any tables printed to the terminal as less than 80 characters in width
 
 ### Target Audience
 
@@ -140,7 +139,8 @@ Solves business requirements 3
 
 1. View all out of stock products
 2. User will want to place an order with the manufacturer for stock, so an email can be send as a table with all the OOS products
-3. Option to go abck to the main menu
+3. Option to go back to the main menu
+4. Fishing tackle names truncated to save space
 
 <details>
     <summary>Out of stock products</summary>
@@ -169,5 +169,54 @@ Solves business requirement 3, 4, 5
     <img src="docs/features/create-5.png" alt="Product create notification">
 </details> 
 
-Solves business requirement 7, 8, 9
+Solves business requirement 7, 9, 3
 
+#### Update Product
+
+1. Update based on UID which is SKU
+2. If SKU doesn't exist, gives option to create a new product
+3. Displays product data before asking what to change
+4. Validate stock/price inputs are values not strings
+5. Prints product post update
+6. Gives option to change other data points, or go back to main menu
+
+<details>
+    <summary>Update Product</summary>
+    <img src="docs/features/update-1.png" alt="Check unique SKU">
+    <img src="docs/features/update-2.png" alt="Print product data">
+    <img src="docs/features/update-3.png" alt="Input validation">
+    <img src="docs/features/update-4.png" alt="Product updated">
+</details> 
+
+Solves business requirement 8, 9, 3, 13
+
+#### Delete Product
+
+1. Checks to see whether SKU exists, if not exists delete option
+2. Prints product data to application
+3. Double delete confirmation
+
+<details>
+    <summary>Delete Product</summary>
+    <img src="docs/features/delete-1.png" alt="Check SKU exists">
+    <img src="docs/features/delete-2.png" alt="Double delete confirmation">
+</details> 
+
+Solves business requirement 10
+
+#### Check Product Margins
+
+1. Prints all product margins, ranked from highest to lowest
+2. Fishing tackle names truncated to save space
+3. Validates all inputs
+4. Can filter out products above or below a certain margin
+
+
+<details>
+    <summary>Check Product Margins</summary>
+    <img src="docs/features/margins-1.png" alt="Print product margins">
+    <img src="docs/features/margins-2.png" alt="Input validation">
+    <img src="docs/features/margins-3.png" alt="Filter out products">
+</details> 
+
+Solves business requirement 11, 
