@@ -46,7 +46,7 @@ ALthough this application has been designed for a specific online store, any sto
 
 ### Flowchart
 
-This floawchart was created using Lucidcharts to plot out how the user flows through the app
+This flowchart was created using Lucidcharts to plot out how the user flows through the app
 
 ## Technologies Used
 
@@ -81,7 +81,14 @@ This floawchart was created using Lucidcharts to plot out how the user flows thr
 
 ### Features
 
+#### Main Menu
 
+* Provides welcome note and instructions on how to reset the app
+* Allows user to login or create an account
+* Differentiate menu colour to improve readability
 
-
+<details>
+    <summary>Main Menu</summary>
+    <img src="docs/features/main-menu.png" alt="Main Menu">
+</details>  
 
