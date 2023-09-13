@@ -233,12 +233,60 @@ Pythons unit testing was used to build 19 automated tests. This can be run by ex
     <img src="docs/unittests/testing.png" alt="Unit testing">
 </details> 
 
-A green PASS indicates the test ran successfully. A red FAIL would mean the opposite
+1. Email Validation (TestUtilities class):
 
-Functions tested:
+Validates if a given email is in the correct format.
+Checks for presence of @ symbol.
+Ensures a domain is present after the @ symbol.
+Validates that there is a username before the @ symbol.
+Handles empty email inputs.
 
 
-Python's Coverage was also used to understand how much of the applications functionality was being tested
+2. Password Validation (TestPasswordValidation class):
+
+Validates if a password meets specified requirements:
+Should be at least 8 characters long.
+Must contain at least one uppercase letter.
+Must contain at least one lowercase letter.
+Should have at least one digit.
+Must include at least one special character.
+Should not have spaces at the beginning or the end.
+
+
+3. Integer Input (TestGetIntegerInput class):
+
+Tests the function that retrieves integer inputs from the user.
+Handles non-integer values and ensures only integer values are accepted.
+
+
+4. Password Matching (TestPasswordMatch class):
+
+Checks if two provided passwords match.
+Ensures identical passwords are recognized as matches.
+Validates that differing passwords are not considered matches.
+
+
+5. Profit Margin Calculation (TestCalculateProfitMargin class):
+
+Validates the function that calculates profit margins.
+Tests positive profit margin scenarios.
+Validates zero profit margin cases.
+Checks negative profit margin scenarios.
+
+
+6. User Authentication (TestAuthentication class):
+
+Tests the login functionality.
+Validates that a user can successfully log in with correct credentials.
+Additionally, the test results are color-coded for clarity:
+
+PASS: Represented in green to indicate a test passed successfully.
+FAIL: Shown in red to highlight a test that did not pass.
+ERROR: Also in red, this indicates a test that raised an unexpected error.
+SKIP: Displayed in yellow to represent tests that were skipped, with reasons provided.
+
+
+Python's Coverage was also used to understand how much of the applications functionality was being tested. This helped understand what needed to be added to the manual testing
 
 <img src="docs/unittests/coverage-py-results.png" alt="Coverage">
 
