@@ -92,3 +92,31 @@ This flowchart was created using Lucidcharts to plot out how the user flows thro
     <img src="docs/features/main-menu.png" alt="Main Menu">
 </details>  
 
+Solves business requirement 1
+
+#### Login/Signup
+
+1. Login - validates email
+2. Login - validates password
+3. Login - validates whether user exists
+4. Login - displays last login time
+4. Validates a genunie option (i.e. 1-3) is made, otherwiase asks user to make another choice
+5. Sign up - validates email
+6. Sign up - checks whether user already exists
+7. Sign up - gives password requirements
+8. Sign up - requires input password twice
+9. Sign up - provides feedback account was created
+
+<details>
+    <summary>Login/Signup</summary>
+    <img src="docs/features/login-val-1.png" alt="Login area 1">
+    <img src="docs/features/login-val-2.png" alt="Login area 2">
+    <img src="docs/features/login-val-3.png" alt="Login area 3">
+    <img src="docs/features/login-val-4.png" alt="Login area 4">
+    <img src="docs/features/signup-val-1.png" alt="Sign up area 1">
+    <img src="docs/features/signup-val-2.png" alt="Sign up area 2">
+    <img src="docs/features/signup-val-3.png" alt="Sign up area 3">
+</details>  
+
+Solves business requirements 1,2,3,4
+
