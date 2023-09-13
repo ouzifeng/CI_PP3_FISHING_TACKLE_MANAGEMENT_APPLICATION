@@ -149,3 +149,25 @@ Solves business requirements 3
     <img src="docs/features/oos-3.png" alt="Out of stock products email">
 </details> 
 
+Solves business requirement 3, 4, 5
+
+#### Create new product
+
+1. Creates product using SKU as the unique identifier
+2. Checks whether SKU already exists
+3. Forces name of product to be more than 3 characters
+4. Validates cost price and sales price input is a number, not a string. Also accepts integers and floats
+5. Validates stock input is a number, not a string or float
+6. Notification that product has been created
+
+<details>
+    <summary>Create new product</summary>
+    <img src="docs/features/create-1.png" alt="Check unique SKU">
+    <img src="docs/features/create-2.png" alt="Validate name">
+    <img src="docs/features/create-3.png" alt="Validate price">
+    <img src="docs/features/create-4.png" alt="Validate stock">
+    <img src="docs/features/create-5.png" alt="Product create notification">
+</details> 
+
+Solves business requirement 7, 8, 9
+
