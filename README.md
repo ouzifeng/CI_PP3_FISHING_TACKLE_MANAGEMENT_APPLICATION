@@ -330,7 +330,10 @@ No errors were found.
 
 
 ### Manual Testing
-<details><summary>See user stories testing</summary>
+
+Each of the business requirements were manually tested to confirm working functionality
+
+<details><summary>See Results</summary>
 
 1. Allow user to login and sign up
 
@@ -340,7 +343,8 @@ No errors were found.
 | User authentication | Try to sign up with a new email and password | User is successfully registered and logged in | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="path-to-your-image-1.jpg">
+<img src="docs/manualtests/login.png">
+<img src="docs/manualtests/signup.png">
 </details>
 
 2. Validate email and passwords, and give instructions on pw requirements
@@ -351,7 +355,7 @@ No errors were found.
 | Email and Password Validation | Enter a password that doesn't meet requirements | Error message with password requirements | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="path-to-your-image-2.jpg">
+<img src="docs/manualtests/email-validate.png">
 </details>
 
 3. Have a clear and easy to use main menu
@@ -361,7 +365,7 @@ No errors were found.
 | Main menu | View main menu after logging in | Clear options presented for various functionalities | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="path-to-your-image-3.jpg">
+<img src="docs/manualtests/clear-menu.png">
 </details>
 
 4. To be able to check which products are out of stock
@@ -371,7 +375,7 @@ No errors were found.
 | Product Stock | Check out-of-stock products | List of out-of-stock products displayed | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="path-to-your-image-4.jpg">
+<img src="docs/manualtests/oos.png">
 </details>
 
 5. To be able to email user a list of out of stock products
@@ -381,7 +385,7 @@ No errors were found.
 | Email Service | Request email of out-of-stock products | Email with list of out-of-stock products sent to user | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="path-to-your-image-5.jpg">
+<img src="docs/manualtests/oos-email.png">
 </details>
 
 6. Show last time a user logged in
@@ -391,7 +395,7 @@ No errors were found.
 | User Activity | Log in | Display message showing the last time user logged in | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="path-to-your-image-6.jpg">
+<img src="docs/manualtests/last-login.png">
 </details>
 
 7. Create a new product with validation for price and stock
@@ -401,7 +405,7 @@ No errors were found.
 | Product Management | Create new product with valid details | Product successfully added with validation checks for price and stock | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="path-to-your-image-7.jpg">
+<img src="docs/manualtests/create-product.png">
 </details>
 
 8. Update existing products using the SKU as the unique identifier
@@ -411,7 +415,7 @@ No errors were found.
 | Product Management | Update product using SKU | Product details updated successfully | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="path-to-your-image-8.jpg">
+<img src="docs/manualtests/sku-update.png">
 </details>
 
 9. Validate price and stock update fields
@@ -421,7 +425,8 @@ No errors were found.
 | Product Management | Update product's price or stock with invalid data | Error message displayed with validation checks | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="path-to-your-image-9.jpg">
+<img src="docs/manualtests/cost-validate.png">
+<img src="docs/manualtests/stock-validate.png">
 </details>
 
 10. Delete a product with a double confirmation, using the SKU as the unique identifier
@@ -431,7 +436,7 @@ No errors were found.
 | Product Management | Request deletion of product using SKU and confirm twice | Product successfully deleted after double confirmation | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="path-to-your-image-10.jpg">
+<img src="docs/manualtests/delete.png">
 </details>
 
 11. Print out a list of all products with their margins, from highest margin to lowest
@@ -441,7 +446,7 @@ No errors were found.
 | Product Margins | View product margins | List of products displayed with margins in descending order | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="path-to-your-image-11.jpg">
+<img src="docs/manualtests/.png">
 </details>
 
 12. Have a margin filter feature, so the user can filter out/in products above/below a certain margin %, with input validation
@@ -451,7 +456,7 @@ No errors were found.
 | Product Margins | Filter products by margin percentage | Products displayed based on margin filter with input validation | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="path-to-your-image-12.jpg">
+<img src="docs/manualtests/.png">>
 </details>
 
 13. If an update product is not found, give option to create a new product
@@ -461,7 +466,7 @@ No errors were found.
 | Product Management | Try to update a non-existent product by SKU | Option given to create a new product | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="path-to-your-image-13.jpg">
+<img src="docs/manualtests/.png">
 </details>
 
 14. Fishing tackle product names can be long, make sure any tables printed to the terminal are less than 80 characters in width
@@ -471,7 +476,7 @@ No errors were found.
 | Product Display | View product names in terminal | Product names displayed in terminal are within 80 characters in width | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="path-to-your-image-14.jpg">
+<img src="docs/manualtests/.png">
 </details>
 
 </details>

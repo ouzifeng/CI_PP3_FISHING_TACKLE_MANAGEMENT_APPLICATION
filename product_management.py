@@ -295,5 +295,12 @@ def check_product_margins():
 
 def clean_price(price_str):
     """Remove any non-numeric characters and convert to float."""
-    cleaned_price = ''.join(filter(str.isdigit or str.isdecimal, price_str))
-    return float(cleaned_price) / 100
+
+    if isinstance(price_str, (float, int)):
+        return float(price_str)
+
+    def is_valid_char(x):
+        return x.isdigit() or x == '.'
+
+    cleaned_price = ''.join(filter(is_valid_char, str(price_str)))
+    return float(cleaned_price)
