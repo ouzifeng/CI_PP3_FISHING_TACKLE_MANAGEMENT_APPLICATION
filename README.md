@@ -547,7 +547,7 @@ This was acheived by:
 * Now everytime a new version is pushed to Github, it will automatically redeploy the app
 * You have the option to press the "Deploy Branch" in the Manual deploy area if you want to manually deploy the lastest Github version again
 
-<details><summary>Create App</summary>
+<details><summary>Connect Github</summary>
 <img src="docs/heroku/connect-github.png">
 </details>
 
@@ -567,6 +567,21 @@ This was acheived by:
 7. Press Enter to create your local clone
 
 
+## Credits
+
+### Content
+
+* www.tackletarts.uk for providing fishing tackle data
 
 
+### Code
 
+The following features were inspired by the "Love Sandwiches" instructional video from the <a href="https://codeinstitute.net/">The Code Institute"></a>
+
+* Using Google Sheets as a stock management system
+* How to import from gspread
+* How to import credentials from google.oauth
+
+### Thanks To
+
+* Mo Shami for providing necessary feedback and support
