@@ -299,16 +299,185 @@ This validator was provided by Code Institute.
 No errors were found.
 
 <details>
-    <summary>PEP8</summary>
+    <summary>authentication.py</summary>
     <img src="docs/validation/pep-1.png" alt="authentication.py">
-    <img src="docs/validation/pep-2.png" alt="email_service.py">
-    <img src="docs/validation/pep-3.png" alt="product_management.py">
-    <img src="docs/validation/pep-4.png" alt="run.py">
-    <img src="docs/validation/pep-5.png" alt="unit_tests.py">
-    <img src="docs/validation/pep-6.png" alt="utilities.py">
-</details> 
+</details>
 
-#### Manual Testing
+<details>
+    <summary>email_service.py</summary>
+    <img src="docs/validation/pep-2.png" alt="email_service.py">
+</details>
+
+<details>
+    <summary>product_management.py</summary>
+    <img src="docs/validation/pep-3.png" alt="product_management.py">
+</details>
+
+<details>
+    <summary>run.py</summary>
+    <img src="docs/validation/pep-4.png" alt="run.py">
+</details>
+
+<details>
+    <summary>unit_tests.py</summary>
+    <img src="docs/validation/pep-5.png" alt="unit_tests.py">
+</details>
+
+<details>
+    <summary>utilities.py</summary>
+    <img src="docs/validation/pep-6.png" alt="utilities.py">
+</details>
+
+
+### Manual Testing
+<details><summary>See user stories testing</summary>
+
+1. Allow user to login and sign up
+
+| **Feature**   | **Action**                    | **Expected Result**          | **Actual Result** |
+| ------------- | ----------------------------- | ---------------------------- | ----------------- |
+| User authentication | Try to log in with valid credentials | User successfully logs in | Works as expected |
+| User authentication | Try to sign up with a new email and password | User is successfully registered and logged in | Works as expected |
+
+<details><summary>Screenshot</summary>
+<img src="path-to-your-image-1.jpg">
+</details>
+
+2. Validate email and passwords, and give instructions on pw requirements
+
+| **Feature**   | **Action**                    | **Expected Result**          | **Actual Result** |
+| ------------- | ----------------------------- | ---------------------------- | ----------------- |
+| Email and Password Validation | Enter an invalid email format during signup/login | Error message about invalid email format | Works as expected |
+| Email and Password Validation | Enter a password that doesn't meet requirements | Error message with password requirements | Works as expected |
+
+<details><summary>Screenshot</summary>
+<img src="path-to-your-image-2.jpg">
+</details>
+
+3. Have a clear and easy to use main menu
+
+| **Feature**   | **Action**                    | **Expected Result**          | **Actual Result** |
+| ------------- | ----------------------------- | ---------------------------- | ----------------- |
+| Main menu | View main menu after logging in | Clear options presented for various functionalities | Works as expected |
+
+<details><summary>Screenshot</summary>
+<img src="path-to-your-image-3.jpg">
+</details>
+
+4. To be able to check which products are out of stock
+
+| **Feature**   | **Action**                    | **Expected Result**          | **Actual Result** |
+| ------------- | ----------------------------- | ---------------------------- | ----------------- |
+| Product Stock | Check out-of-stock products | List of out-of-stock products displayed | Works as expected |
+
+<details><summary>Screenshot</summary>
+<img src="path-to-your-image-4.jpg">
+</details>
+
+5. To be able to email user a list of out of stock products
+
+| **Feature**   | **Action**                    | **Expected Result**          | **Actual Result** |
+| ------------- | ----------------------------- | ---------------------------- | ----------------- |
+| Email Service | Request email of out-of-stock products | Email with list of out-of-stock products sent to user | Works as expected |
+
+<details><summary>Screenshot</summary>
+<img src="path-to-your-image-5.jpg">
+</details>
+
+6. Show last time a user logged in
+
+| **Feature**   | **Action**                    | **Expected Result**          | **Actual Result** |
+| ------------- | ----------------------------- | ---------------------------- | ----------------- |
+| User Activity | Log in | Display message showing the last time user logged in | Works as expected |
+
+<details><summary>Screenshot</summary>
+<img src="path-to-your-image-6.jpg">
+</details>
+
+7. Create a new product with validation for price and stock
+
+| **Feature**   | **Action**                    | **Expected Result**          | **Actual Result** |
+| ------------- | ----------------------------- | ---------------------------- | ----------------- |
+| Product Management | Create new product with valid details | Product successfully added with validation checks for price and stock | Works as expected |
+
+<details><summary>Screenshot</summary>
+<img src="path-to-your-image-7.jpg">
+</details>
+
+8. Update existing products using the SKU as the unique identifier
+
+| **Feature**   | **Action**                    | **Expected Result**          | **Actual Result** |
+| ------------- | ----------------------------- | ---------------------------- | ----------------- |
+| Product Management | Update product using SKU | Product details updated successfully | Works as expected |
+
+<details><summary>Screenshot</summary>
+<img src="path-to-your-image-8.jpg">
+</details>
+
+9. Validate price and stock update fields
+
+| **Feature**   | **Action**                    | **Expected Result**          | **Actual Result** |
+| ------------- | ----------------------------- | ---------------------------- | ----------------- |
+| Product Management | Update product's price or stock with invalid data | Error message displayed with validation checks | Works as expected |
+
+<details><summary>Screenshot</summary>
+<img src="path-to-your-image-9.jpg">
+</details>
+
+10. Delete a product with a double confirmation, using the SKU as the unique identifier
+
+| **Feature**   | **Action**                    | **Expected Result**          | **Actual Result** |
+| ------------- | ----------------------------- | ---------------------------- | ----------------- |
+| Product Management | Request deletion of product using SKU and confirm twice | Product successfully deleted after double confirmation | Works as expected |
+
+<details><summary>Screenshot</summary>
+<img src="path-to-your-image-10.jpg">
+</details>
+
+11. Print out a list of all products with their margins, from highest margin to lowest
+
+| **Feature**   | **Action**                    | **Expected Result**          | **Actual Result** |
+| ------------- | ----------------------------- | ---------------------------- | ----------------- |
+| Product Margins | View product margins | List of products displayed with margins in descending order | Works as expected |
+
+<details><summary>Screenshot</summary>
+<img src="path-to-your-image-11.jpg">
+</details>
+
+12. Have a margin filter feature, so the user can filter out/in products above/below a certain margin %, with input validation
+
+| **Feature**   | **Action**                    | **Expected Result**          | **Actual Result** |
+| ------------- | ----------------------------- | ---------------------------- | ----------------- |
+| Product Margins | Filter products by margin percentage | Products displayed based on margin filter with input validation | Works as expected |
+
+<details><summary>Screenshot</summary>
+<img src="path-to-your-image-12.jpg">
+</details>
+
+13. If an update product is not found, give option to create a new product
+
+| **Feature**   | **Action**                    | **Expected Result**          | **Actual Result** |
+| ------------- | ----------------------------- | ---------------------------- | ----------------- |
+| Product Management | Try to update a non-existent product by SKU | Option given to create a new product | Works as expected |
+
+<details><summary>Screenshot</summary>
+<img src="path-to-your-image-13.jpg">
+</details>
+
+14. Fishing tackle product names can be long, make sure any tables printed to the terminal are less than 80 characters in width
+
+| **Feature**   | **Action**                    | **Expected Result**          | **Actual Result** |
+| ------------- | ----------------------------- | ---------------------------- | ----------------- |
+| Product Display | View product names in terminal | Product names displayed in terminal are within 80 characters in width | Works as expected |
+
+<details><summary>Screenshot</summary>
+<img src="path-to-your-image-14.jpg">
+</details>
+
+</details>
+
+
+
 
 
 
