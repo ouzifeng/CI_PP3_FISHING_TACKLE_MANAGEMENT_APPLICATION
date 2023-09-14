@@ -6,6 +6,37 @@ By David Oak
 
 [Link to live site](https://python-module-3c3f040b0b4c.herokuapp.com/)
 
+## Table of Contents
+- [Introduction](#introduction)
+- [Business Requirements](#business-requirements)
+- [Target Audience](#target-audience)
+- [Technical Design](#technical-design)
+  - [Flowchart](#flowchart)
+- [Technologies Used](#technologies-used)
+  - [Languages](#languages)
+  - [Frameworks and Tools](#frameworks-and-tools)
+  - [Python & Third Party Libraries](#python--third-party-libraries)
+- [Features](#features)
+  - [Main Menu](#main-menu)
+  - [Login/Signup](#login-signup)
+  - [Product Management Menu](#product-management-menu)
+  - [Out of stock products](#out-of-stock-products)
+  - [Create new product](#create-new-product)
+  - [Update Product](#update-product)
+  - [Delete Product](#delete-product)
+- [Testing](#testing)
+  - [Automated Unit Testing](#automated-unit-testing)
+  - [Manual Testing](#manual-testing)
+- [Bugs and Fixes](#bugs-and-fixes)
+  - [Unfixed Bugs](#unfixed-bugs)
+- [Deployment](#deployment)
+  - [Forking the GitHub Repository](#forking-the-github-repository)
+  - [Making a Local Clone](#making-a-local-clone)
+- [Credits](#credits)
+  - [Content](#content)
+  - [Code](#code)
+  - [Thanks To](#thanks-to)
+
 ## Introduction
 
 A fishing tackle shop spends a lot of time manually updating, creating and managing their fishing tackle products. They have requested from me a CLI based application where they can access their stock management system, which is setup using a Google Sheet. This application must be able to update, create and delete products, as well as have additional functionality such as a login/sign up field for security, and the ability to check margins of products.
