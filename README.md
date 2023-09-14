@@ -446,7 +446,7 @@ Each of the business requirements were manually tested to confirm working functi
 | Product Margins | View product margins | List of products displayed with margins in descending order | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="docs/manualtests/.png">
+<img src="docs/manualtests/margins.png">
 </details>
 
 12. Have a margin filter feature, so the user can filter out/in products above/below a certain margin %, with input validation
@@ -456,7 +456,7 @@ Each of the business requirements were manually tested to confirm working functi
 | Product Margins | Filter products by margin percentage | Products displayed based on margin filter with input validation | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="docs/manualtests/.png">>
+<img src="docs/manualtests/filter-margin.png">>
 </details>
 
 13. If an update product is not found, give option to create a new product
@@ -466,7 +466,7 @@ Each of the business requirements were manually tested to confirm working functi
 | Product Management | Try to update a non-existent product by SKU | Option given to create a new product | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="docs/manualtests/.png">
+<img src="docs/manualtests/create-new-sku.png">
 </details>
 
 14. Fishing tackle product names can be long, make sure any tables printed to the terminal are less than 80 characters in width
@@ -476,7 +476,7 @@ Each of the business requirements were manually tested to confirm working functi
 | Product Display | View product names in terminal | Product names displayed in terminal are within 80 characters in width | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="docs/manualtests/.png">
+<img src="docs/manualtests/truncated.png">
 </details>
 
 </details>
