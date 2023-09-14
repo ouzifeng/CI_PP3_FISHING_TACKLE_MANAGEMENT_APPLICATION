@@ -12,7 +12,7 @@ A fishing tackle shop spends a lot of time manually updating, creating and manag
 
 They estimate that this will half the time they currently spend managing the Google Sheet manually, which frees up resources for them to invest in growing their business both online and in store.
 
-### Business Requirements
+## Business Requirements
 
 As the end user and the customer are the same, they have given a set of clearly defined requirements the application needs to adhere to:
 
@@ -31,7 +31,7 @@ As the end user and the customer are the same, they have given a set of clearly 
 13. If an update product is not found, give option to create a new product
 14. Fishing tackle product names can be long, make sure any tables printed to the terminal as less than 80 characters in width
 
-### Target Audience
+## Target Audience
 
 ALthough this application has been designed for a specific online store, any store that uses Google Sheets to manage products can integrate this software. However the sheets must be setup as so:
 
@@ -49,12 +49,12 @@ This flowchart was created using Lucidcharts to plot out how the user flows thro
 
 ## Technologies Used
 
-#### Languages
+### Languages
 
 * Python was the programming language used for the application
 * HTML was used to structure the email content
 
-#### Frameworks and Tools
+### Frameworks and Tools
 
 * Lucidcharts for the wireframes
 * Googlesheets to host the data
@@ -78,9 +78,9 @@ This flowchart was created using Lucidcharts to plot out how the user flows thro
 * google-auth - to authenticate Googles APIs
 * unittest - to build unit testings
 
-### Features
+## Features
 
-#### Main Menu
+### Main Menu
 
 * Provides welcome note and instructions on how to reset the app
 * Allows user to login or create an account
@@ -93,7 +93,7 @@ This flowchart was created using Lucidcharts to plot out how the user flows thro
 
 Solves business requirement 1, 14
 
-#### Login/Signup
+### Login/Signup
 
 1. Login - validates email
 2. Login - validates password
@@ -120,7 +120,7 @@ Solves business requirement 1, 14
 Solves business requirements 1, 2, 3, 6
 
 
-#### Product Management Menu
+### Product Management Menu
 
 1. Clear and easy to navigate
 2. Option to check out of stock products
@@ -135,7 +135,7 @@ Solves business requirements 1, 2, 3, 6
 
 Solves business requirements 3
 
-#### Out of stock products
+### Out of stock products
 
 1. View all out of stock products
 2. User will want to place an order with the manufacturer for stock, so an email can be send as a table with all the OOS products
@@ -151,7 +151,7 @@ Solves business requirements 3
 
 Solves business requirement 3, 4, 5, 14
 
-#### Create new product
+### Create new product
 
 1. Creates product using SKU as the unique identifier
 2. Checks whether SKU already exists
@@ -171,7 +171,7 @@ Solves business requirement 3, 4, 5, 14
 
 Solves business requirement 7, 9, 3
 
-#### Update Product
+### Update Product
 
 1. Update based on UID which is SKU
 2. If SKU doesn't exist, gives option to create a new product
@@ -190,7 +190,7 @@ Solves business requirement 7, 9, 3
 
 Solves business requirement 8, 9, 3, 13
 
-#### Delete Product
+### Delete Product
 
 1. Checks to see whether SKU exists, if not exists delete option
 2. Prints product data to application
@@ -221,9 +221,9 @@ Solves business requirement 10
 
 Solves business requirement 11, 12, 14
 
-### Testing
+## Testing
 
-#### Automated Unit Testing
+### Automated Unit Testing
 
 Pythons unit testing was used to build 19 automated tests. This can be run by executing the unit_tests.py file using python3 unit_tests.py
 
@@ -481,7 +481,90 @@ Each of the business requirements were manually tested to confirm working functi
 
 </details>
 
+## Bugs and Fixes
 
+| Bug Description  | Action Taken to Fix  |
+|---|---|
+| Print margins would not print due to inconsistencies in data types in the function. | The function will handle both float and integer values by converting them to floats, as well as clean strings that represent prices. |
+| Users would be asked to login after creating an account. | User is now automatically logged in after creating an account. |
+| If a user input an incorrect password, it would start the login/signup process from the beginning. | The user is prompted to input the password again, not start from the top. |
+| No option to exit from the check margins menu. | Added option to return to main menu. |
+| The system would not check if the SKU exists before creating a new one. | The application now checks existing SKUs to remove the chance of product duplication. |
+
+
+### Unfixed Bugs
+
+* No bugs remain after extensive testing
+
+
+## Deployment
+
+The application has been setup to autodeploy to Heroku when an updated version is pushed to Github
+
+This was acheived by:
+
+#### Step 1
+
+* Create an account at Herku and login
+
+<details><summary>Heroku Login</summary>
+<img src="docs/heroku/login.png">
+</details>
+
+#### Step 2
+
+* Create a new app
+
+<details><summary>Create App</summary>
+<img src="docs/heroku/create-app-1.png">
+</details>
+
+#### Step 3
+
+ * Input config vars
+ * Go to Heroku app settings
+ * Scroll to config vars
+ * input new config vars PORT = 8000 and CREDS = content of the creds.json file, where the API connection details are all saved
+
+<details><summary>Config Vars</summary>
+<img src="docs/heroku/config-vars.png">
+</details>
+
+#### Step 4
+
+* Click on "Add Buildpack" button in the Buildpacks area of the app settings page
+* Add a python and a nodejs buildpack
+
+<details><summary>Buildpack</summary>
+<img src="docs/heroku/buildpack.png">
+</details>
+
+
+#### Step 5
+
+* Connect the app to the Github repo
+* Make sure "Enable Automatic Deploys" is checked
+* Now everytime a new version is pushed to Github, it will automatically redeploy the app
+* You have the option to press the "Deploy Branch" in the Manual deploy area if you want to manually deploy the lastest Github version again
+
+<details><summary>Create App</summary>
+<img src="docs/heroku/connect-github.png">
+</details>
+
+
+### Forking the GitHub Repository
+1. Go to the GitHub repository https://github.com/ouzifeng/CI_PP3_PYTHON
+2. Click on Fork button in top right corner
+3. You will then have a copy of the repository in your own GitHub account.
+   
+### Making a Local Clone
+1. Go to the GitHub repository 
+2. Locate the Code button above the list of files and click it
+3. Highlight the "HTTPS" button to clone with HTTPS and copy the link
+4. Open Git Bash
+5. Change the current working directory to the one where you want the cloned directory
+6. Type git clone and paste the URL from the clipboard ($ git clone <span>https://</span>github.com/YOUR-USERNAME/YOUR-REPOSITORY)
+7. Press Enter to create your local clone
 
 
 
