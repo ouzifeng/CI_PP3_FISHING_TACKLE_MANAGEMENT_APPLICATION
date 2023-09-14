@@ -157,26 +157,43 @@ def create_product():
 
     products = products_sheet.get_all_records()
     existing_skus = [product['SKU'] for product in products]
-
     while True:
         sku = input("Enter the SKU for the new product: ")
         if sku in existing_skus:
             print("SKU already exists. Please enter a unique SKU.")
-            continue
-        prompt_msg = "Enter the name of the product (more than 3 chars): "
-        product_name = input(prompt_msg)
+        else:
+            break
+
+    while True:
+        product_name = input("Enter the name of "
+                             "the product (more than 3 chars): ")
         if len(product_name) <= 3:
             print("Product name must be more than 3 characters!")
-            continue
+        else:
+            break
+
+    while True:
         try:
-            prompt_cost = "Enter the cost price: "
-            cost_price = float(input(prompt_cost).replace('£', '').strip())
-            prompt_rrp = "Enter the RRP of the product: "
-            rrp = float(input(prompt_rrp).replace('£', '').strip())
+            cost_price = float(input("Enter the "
+                                     "cost price: ").replace('£', '').strip())
+            break
+        except ValueError:
+            print("Enter a valid cost price!")
+
+    while True:
+        try:
+            rrp = float(input("Enter the "
+                              "RRP of the product: ").replace('£', '').strip())
+            break
+        except ValueError:
+            print("Enter a valid RRP!")
+
+    while True:
+        try:
             stock = int(input("Enter the stock level: "))
             break
         except ValueError:
-            print("Enter valid values for price and stock!")
+            print("Enter a valid stock level!")
 
     new_row = [
         sku,

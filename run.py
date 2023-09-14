@@ -38,7 +38,7 @@ def main():
                     break
 
             elif choice == '2':
-                signup()
+                logged_in = signup()
             elif choice == '3':
                 exit()
             else:
