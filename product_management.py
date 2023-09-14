@@ -1,4 +1,3 @@
-import re
 import gspread
 from prettytable import PrettyTable
 from email_service import send_email

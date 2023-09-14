@@ -7,35 +7,61 @@ By David Oak
 [Link to live site](https://python-module-3c3f040b0b4c.herokuapp.com/)
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Business Requirements](#business-requirements)
-- [Target Audience](#target-audience)
-- [Technical Design](#technical-design)
-  - [Flowchart](#flowchart)
-- [Technologies Used](#technologies-used)
-  - [Languages](#languages)
-  - [Frameworks and Tools](#frameworks-and-tools)
-  - [Python & Third Party Libraries](#python--third-party-libraries)
-- [Features](#features)
-  - [Main Menu](#main-menu)
-  - [Login/Signup](#login-signup)
-  - [Product Management Menu](#product-management-menu)
-  - [Out of stock products](#out-of-stock-products)
-  - [Create new product](#create-new-product)
-  - [Update Product](#update-product)
-  - [Delete Product](#delete-product)
-- [Testing](#testing)
-  - [Automated Unit Testing](#automated-unit-testing)
-  - [Manual Testing](#manual-testing)
-- [Bugs and Fixes](#bugs-and-fixes)
-  - [Unfixed Bugs](#unfixed-bugs)
-- [Deployment](#deployment)
-  - [Forking the GitHub Repository](#forking-the-github-repository)
-  - [Making a Local Clone](#making-a-local-clone)
-- [Credits](#credits)
-  - [Content](#content)
-  - [Code](#code)
-  - [Thanks To](#thanks-to)
+
+- [Fishing Tackle Management System](#fishing-tackle-management-system)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Business Requirements](#business-requirements)
+  - [Target Audience](#target-audience)
+  - [Technical Design](#technical-design)
+    - [Flowchart](#flowchart)
+  - [Technologies Used](#technologies-used)
+    - [Languages](#languages)
+    - [Frameworks and Tools](#frameworks-and-tools)
+    - [Python & Third Party Libraries](#python-&-third-party-libraries)
+  - [Features](#features)
+    - [Main Menu](#main-menu)
+    - [Login/Signup](#login/signup)
+    - [Product Management Menu](#product-management-menu)
+    - [Out of stock products](#out-of-stock-products)
+    - [Create new product](#create-new-product)
+    - [Update Product](#update-product)
+    - [Delete Product](#delete-product)
+      - [Check Product Margins](#check-product-margins)
+  - [Testing](#testing)
+    - [Automated Unit Testing](#automated-unit-testing)
+      - [PEP8](#pep8)
+    - [Manual Testing](#manual-testing)
+  - [Data Modeling](#data-modeling)
+      - [User Data:](#user-data)
+      - [Product Data:](#product-data)
+  - [User Manual](#user-manual)
+    - [Logging In](#logging-in)
+    - [Signing Up](#signing-up)
+    - [Main Menu](#main-menu)
+    - [Product Management](#product-management)
+      - [1. View All Out-of-stock Products](#1.-view-all-out-of-stock-products)
+      - [2. Create a New Product](#2.-create-a-new-product)
+      - [3. Update Product Details](#3.-update-product-details)
+      - [4. Delete a Product](#4.-delete-a-product)
+      - [5. Check Product Margins](#5.-check-product-margins)
+    - [Logging Out](#logging-out)
+    - [Exiting the Application](#exiting-the-application)
+  - [Bugs and Fixes](#bugs-and-fixes)
+    - [Unfixed Bugs](#unfixed-bugs)
+  - [Deployment](#deployment)
+      - [Step 1](#step-1)
+      - [Step 2](#step-2)
+      - [Step 3](#step-3)
+      - [Step 4](#step-4)
+      - [Step 5](#step-5)
+    - [Forking the GitHub Repository](#forking-the-github-repository)
+    - [Making a Local Clone](#making-a-local-clone)
+  - [Credits](#credits)
+    - [Content](#content)
+    - [Code](#code)
+    - [Thanks To](#thanks-to)
+
 
 ## Introduction
 
@@ -511,6 +537,89 @@ Each of the business requirements were manually tested to confirm working functi
 </details>
 
 </details>
+
+## Data Modeling
+
+In this application, data is stored and managed using Google Sheets as a database. Here's a brief overview of how the data is structured:
+
+#### User Data:
+
+* User: This field stores the email ID of the user.
+* Password: The password associated with the user's email ID.
+* Last Login: The timestamp of the user's last login.
+
+#### Product Data:
+
+* SKU: The stock keeping unit and the unique identifier for each product
+* Name: The name of the product.
+* Cost Price: The price at which the product was purchased.
+* RRP: The price at which the product is sold to customers.
+* Stock: The quantity of the product currently in stock.
+
+This data model allows the application to manage user authentication and product information efficiently.
+
+## User Manual
+
+### Logging In
+
+To access the Fishing Tackle Management System, you'll first need to log in:
+1. Launch the application.
+2. When prompted, input your registered email address.
+3. Input the corresponding password.
+
+### Signing Up
+
+If you don't have an account:
+1. Select the "Sign up" option.
+2. Provide a valid email address and set a secure password.
+3. Follow the on-screen prompts to complete the registration.
+
+### Main Menu
+
+Once logged in, you'll be directed to the main menu where various options are available:
+
+### Product Management
+
+#### 1. View All Out-of-stock Products
+- Get a list of all products that are currently out of stock. 
+- Useful for identifying which products need restocking.
+
+#### 2. Create a New Product
+- Add a new item to the inventory.
+    - **Product Name**: Descriptive name for the product.
+    - **Description**: Brief details or features of the product.
+    - **Stock Level**: Initial quantity in stock.
+    - **Buying Price**: Cost price of the product.
+    - **Selling Price**: Retail price for customers.
+
+#### 3. Update Product Details
+- Modify details for an existing product.
+    - Select the product (usually by product ID or name).
+    - Update any details such as name, description, stock level, buying price, or selling price.
+
+#### 4. Delete a Product
+- Remove a product from the inventory.
+    - Useful if a product is no longer in stock or being sold.
+    - A confirmation prompt ensures products aren't accidentally deleted.
+
+#### 5. Check Product Margins
+- Gain insights into product profitability.
+    - View the margin for each product, calculated from the selling price minus the buying price.
+    - Useful for assessing product profitability and pricing strategies.
+
+### Logging Out
+
+When you're done using the Fishing Tackle Management System, you can:
+1. Select the "Log out" option from the main menu.
+2. Confirm to log out and return to the login screen.
+
+### Exiting the Application
+
+To close the application:
+1. Select the "Exit Application" option from the main menu.
+2. The application will close safely.
+
+
 
 ## Bugs and Fixes
 

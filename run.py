@@ -1,4 +1,4 @@
-from authentication import login, is_valid_email
+from authentication import login
 from authentication import signup
 from product_management import (
     update_product_details,
@@ -7,7 +7,7 @@ from product_management import (
     create_product,
     check_product_margins
 )
-from colorama import init, Fore, Back, Style
+from colorama import init, Fore, Style
 init(autoreset=True)
 
 
