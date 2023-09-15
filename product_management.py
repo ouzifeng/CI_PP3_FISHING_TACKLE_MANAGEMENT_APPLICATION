@@ -3,6 +3,7 @@ from prettytable import PrettyTable
 from email_service import send_email
 from google.oauth2.service_account import Credentials
 from utilities import get_integer_input
+from colorama import Fore, Style
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",

@@ -104,6 +104,11 @@ ALthough this application has been designed for a specific online store, any sto
 
 This flowchart was created using Lucidcharts to plot out how the user flows through the app
 
+<details>
+    <summary>Flowchart</summary>
+    <img src="docs/chart-flow.png" alt="Flowchart">
+</details>  
+
 ## Technologies Used
 
 ### Languages
@@ -125,15 +130,29 @@ This flowchart was created using Lucidcharts to plot out how the user flows thro
 
 ### Python & Third Party Libraries
 
-* re - for checking inputs passed requirements
-* os - used to clear terminal
-* gspread - a python API for Google Sheets
-* prettytable - to build the tables printed in the console
-* coverage - to measure how much of the application is being tested via automated unit testing
-* colorama - to provide a more interactive interface
-* datetime - to store timestamps of logins
-* google-auth - to authenticate Googles APIs
-* unittest - to build unit testings
+Python Libraries:
+
+- **re**: Used for pattern matching and string manipulation.
+- **os**: Provides a way of using operating system-dependent functionality like reading or writing to the file system.
+- **datetime**: For manipulating dates and times.
+- **unittest**: A built-in library for writing tests in Python.
+
+Third party libraries:
+
+- **gspread**: A Python API for Google Sheets.
+  - **Justification**: `gspread` allows for easy interaction with Google Sheets, serving as a database for our application. This eliminates the need for a traditional database setup and provides a user-friendly interface for data management.
+  
+- **prettytable**: Used to display tabular data in a visually appealing ASCII table format.
+  - **Justification**: Provides an enhanced visual experience when displaying data in the terminal, making it easier for users to read and understand.
+  
+- **coverage**: Measures code coverage of Python programs.
+  - **Justification**: Essential for ensuring that as much of the application as possible is being tested via automated unit tests, highlighting areas that might have been missed.
+  
+- **colorama**: Makes ANSI escape character sequences (for producing colored terminal text and cursor positioning) work under MS Windows.
+  - **Justification**: Improves the user experience by adding color to terminal outputs, making information clearer and more visually appealing.
+  
+- **google-auth**: Provides authentication for Google's APIs.
+  - **Justification**: Necessary for securely connecting and interacting with Google's various services, ensuring that user data is safe and the connection is authenticated.
 
 ## Features
 
