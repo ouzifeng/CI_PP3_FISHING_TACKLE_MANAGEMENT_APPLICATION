@@ -1,7 +1,7 @@
 import datetime
 from google.oauth2.service_account import Credentials
 import gspread
-
+from colorama import Fore, Style
 from utilities import is_valid_email, is_valid_password
 
 SCOPE = [
@@ -16,7 +16,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('fishing_tackle')
 users_sheet = SHEET.worksheet('user')
 test_users_sheet = SHEET.worksheet('test_user')
-from colorama import Fore, Style
+
 
 def login(sheet=users_sheet):
     """Allows the user to log in."""
@@ -34,7 +34,8 @@ def login(sheet=users_sheet):
             email_records = [user['User'] for user in user_data]
 
             if email not in email_records:
-                raise ValueError(Fore.RED + "\nEmail not found in our database.")
+                raise ValueError(Fore.RED + "\nEmail not "
+                                 "found in our database.")
 
             while True:
                 password = input("Enter your password "
