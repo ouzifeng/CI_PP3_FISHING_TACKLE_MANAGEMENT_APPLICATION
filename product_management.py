@@ -161,10 +161,10 @@ def create_product():
     while True:
         sku = input("Enter the SKU for the new product: ").strip()
         if not sku:
-            print("SKU cannot be blank. Please enter a valid SKU.")
+            print(Fore.RED + "SKU cannot be blank. Please enter a valid SKU.")
             continue
         if sku in existing_skus:
-            print("SKU already exists. Please enter a unique SKU.")
+            print(Fore.RED + "SKU already exists. Please enter a unique SKU.")
             continue
         break
 
@@ -172,7 +172,7 @@ def create_product():
         product_name = input("Enter the name of the "
                              "product (more than 3 chars): ").strip()
         if len(product_name) <= 3:
-            print("Product name must be more than 3 characters!")
+            print(Fore.RED + "Product name must be more than 3 characters!")
         else:
             break
 
@@ -182,7 +182,7 @@ def create_product():
                                      "cost price: ").replace('£', '').strip())
             break
         except ValueError:
-            print("Enter a valid cost price!")
+            print(Fore.RED + "Enter a valid cost price!")
 
     while True:
         try:
@@ -190,14 +190,14 @@ def create_product():
                               "of the product: ").replace('£', '').strip())
             break
         except ValueError:
-            print("Enter a valid RRP!")
+            print(Fore.RED + "Enter a valid RRP!")
 
     while True:
         try:
             stock = int(input("Enter the stock level: "))
             break
         except ValueError:
-            print("Enter a valid stock level!")
+            print(Fore.RED + "Enter a valid stock level!")
 
     new_row = [
         sku,
@@ -254,12 +254,12 @@ def check_product_margins():
         elif choice == '2':
             operation = input("Enter operation (either '>' or '<'): ")
             if operation not in ['>', '<']:
-                print("Invalid operation. Retry.")
+                print(Fore.RED + "Invalid operation. Retry.")
                 continue
             try:
                 threshold = float(input("Enter threshold percentage: "))
             except ValueError:
-                print("Invalid input. Retry.")
+                print(Fore.RED + "Invalid input. Retry.")
                 continue
 
             def meets_threshold(margin, op, thresh):
@@ -295,7 +295,7 @@ def check_product_margins():
             return
 
         else:
-            print("Invalid choice. Retry.")
+            print(Fore.RED + "Invalid choice. Retry.")
 
 
 def clean_price(price_str):
