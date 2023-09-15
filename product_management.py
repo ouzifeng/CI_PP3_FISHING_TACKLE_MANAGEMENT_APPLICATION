@@ -152,21 +152,25 @@ def check_out_of_stock():
 
 
 def create_product():
-    """ Allows the user to create a new product """
+    """Allows the user to create a new product."""
     products_sheet = SHEET.worksheet('products')
-
     products = products_sheet.get_all_records()
     existing_skus = [product['SKU'] for product in products]
+
+    # Ensure SKU is not blank and is unique
     while True:
-        sku = input("Enter the SKU for the new product: ")
+        sku = input("Enter the SKU for the new product: ").strip()
+        if not sku:
+            print("SKU cannot be blank. Please enter a valid SKU.")
+            continue
         if sku in existing_skus:
             print("SKU already exists. Please enter a unique SKU.")
-        else:
-            break
+            continue
+        break
 
     while True:
-        product_name = input("Enter the name of "
-                             "the product (more than 3 chars): ")
+        product_name = input("Enter the name of the "
+                             "product (more than 3 chars): ").strip()
         if len(product_name) <= 3:
             print("Product name must be more than 3 characters!")
         else:
@@ -182,8 +186,8 @@ def create_product():
 
     while True:
         try:
-            rrp = float(input("Enter the "
-                              "RRP of the product: ").replace('£', '').strip())
+            rrp = float(input("Enter the RRP "
+                              "of the product: ").replace('£', '').strip())
             break
         except ValueError:
             print("Enter a valid RRP!")
@@ -202,6 +206,7 @@ def create_product():
         f"{rrp:.2f}",
         str(stock)
     ]
+
     products_sheet.append_row(new_row)
     print(f"Product {product_name} with SKU {sku} added successfully!")
 
