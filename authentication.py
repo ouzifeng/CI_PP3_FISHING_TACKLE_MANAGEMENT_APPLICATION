@@ -16,7 +16,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('fishing_tackle')
 users_sheet = SHEET.worksheet('user')
 test_users_sheet = SHEET.worksheet('test_user')
-
+from colorama import Fore, Style
 
 def login(sheet=users_sheet):
     """Allows the user to log in."""
@@ -28,13 +28,13 @@ def login(sheet=users_sheet):
                 return False
 
             if not is_valid_email(email):
-                raise ValueError("\nInvalid email format!")
+                raise ValueError(Fore.RED + "\nInvalid email format!")
 
             user_data = sheet.get_all_records()
             email_records = [user['User'] for user in user_data]
 
             if email not in email_records:
-                raise ValueError("\nEmail not found in our database.")
+                raise ValueError(Fore.RED + "\nEmail not found in our database.")
 
             while True:
                 password = input("Enter your password "
@@ -68,11 +68,11 @@ def signup(sheet=users_sheet):
             if not email:  # Check for empty input to exit
                 return
             if not is_valid_email(email):
-                raise ValueError("Invalid email! "
+                raise ValueError(Fore.RED + "Invalid email! "
                                  "Please adhere to the requirements.")
             user_data = sheet.col_values(1)
             if email in user_data:
-                raise ValueError("Email already exists! "
+                raise ValueError(Fore.RED + "Email already exists! "
                                  "Please try another one or log in.")
             break
         except ValueError as e:
@@ -95,12 +95,13 @@ def signup(sheet=users_sheet):
             if not password:
                 return
             if not is_valid_password(password):
-                raise ValueError("Invalid password! "
+                raise ValueError(Fore.RED + "Invalid password! "
                                  "Please adhere to the requirements.")
 
             confirm_password = input("Re-enter password to confirm: ")
             if password != confirm_password:
-                raise ValueError("\nPasswords do not match! Please try again.")
+                raise ValueError(Fore.RED + "\nPasswords do not match! "
+                                 "Please try again.")
             break
         except ValueError as e:
             print(e)
@@ -108,7 +109,7 @@ def signup(sheet=users_sheet):
 
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     sheet.append_row([email, password, current_time])
-    print(f"\nUser with email {email} successfully signed up!")
+    print(Fore.GREEN + f"\nUser with email {email} successfully signed up!")
     return True
 
 

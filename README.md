@@ -90,7 +90,7 @@ As the end user and the customer are the same, they have given a set of clearly 
 
 ## Target Audience
 
-ALthough this application has been designed for a specific online store, any store that uses Google Sheets to manage products can integrate this software. However the sheets must be setup as so:
+Although this application has been designed for a specific online store, any store that uses Google Sheets to manage products can integrate this software. However the sheets must be setup as so:
 
  **Sheet Name**   | **Column 1 Header**  | **Column 2 Header** | **Column 4 Header** | **Column 5 Header** |
 | --------------- | -------------------- | ------------------- | ------------------- | ------------------- |
@@ -532,7 +532,7 @@ Each of the business requirements were manually tested to confirm working functi
 | Product Margins | Filter products by margin percentage | Products displayed based on margin filter with input validation | Works as expected |
 
 <details><summary>Screenshot</summary>
-<img src="docs/manualtests/filter-margin.png">>
+<img src="docs/manualtests/filter-margins.png">
 </details>
 
 13. If an update product is not found, give option to create a new product
@@ -735,7 +735,7 @@ This was acheived by:
 
 ### Code
 
-The following features were inspired by the "Love Sandwiches" instructional video from the <a href="https://codeinstitute.net/">The Code Institute"></a>
+The following features were inspired by the "Love Sandwiches" instructional video from the <a href="https://codeinstitute.net/">The Code Institute</a>
 
 * Using Google Sheets as a stock management system
 * How to import from gspread
