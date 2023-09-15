@@ -246,7 +246,7 @@ def check_product_margins():
             table.align["Margin %"] = "l"
             for margin in sorted_margins:
                 sku = str(margin['SKU'])[:10]
-                product_name = margin['Product Name'][:40]
+                product_name = str(margin['Product Name'])[:40]
                 margin_value = f"{margin['Margin %']:.2f}%"
                 table.add_row([sku, product_name, margin_value])
             print(table)
